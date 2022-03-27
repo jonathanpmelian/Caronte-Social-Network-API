@@ -27,9 +27,9 @@ The COMMENT flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-POST   | /post/:postId/comment | SI    | User - Admin | Create a comment inside a post | `user`, `content`, `like`                | `object with new comment of a post`
-POST   | /post/:postId/comment/:commentId   | SI    | User - Admin | Post a comment inside a comment | `user`, `content`, `like`  | `object with new comment of a comment`
-PUT    | /post/:postId/comment/:commentId   | SI    | User - Admin   | Edit one comment |                                         | `object with updated comment`
+POST   | /post/:postId/comment | SI    | User - Admin | Create a comment inside a post | `user`, `content`, `like`, `publishDate`                | `object with new comment of a post`
+POST   | /post/:postId/comment/:commentId   | SI    | User - Admin | Post a comment inside a comment | `user`, `content`, `like`, `publishDate`  | `object with new comment of a comment`
+PUT    | /post/:postId/comment/:commentId   | SI    | User - Admin   | Edit one comment | -                                        | `object with updated comment`
 
 The PROFILE flow for the application is:
  
