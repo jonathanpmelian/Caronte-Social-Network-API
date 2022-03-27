@@ -17,11 +17,11 @@ The POST flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /post            | SI    | User - Admin   | View all posts             |                                                 | 
-GET    | /post/:postId    | SI    | User - Admin   | View one post              |                                                 |
-POST   | /post            | SI    | User - Admin   | Create one post            |                                                 | 
-PUT    | /post/:postId    | SI    | User - Admin   | Edit one post              |                                                 | 
-DELETE | /post/:postId    | SI    | User - Admin   | Delete one post            |                                                 | 
+GET    | /post            | SI    | User - Admin   | View all posts             | -                                                | `list of all posts`
+GET    | /post/:postId    | SI    | User - Admin   | View one post              | -                                               | `object a postId`
+POST   | /post            | SI    | User - Admin   | Create one post            | `user`, `title`, `content`, `category`, `publishDate`, `premium` | `object with new post`                                             | 
+PUT    | /post/:postId    | SI    | User - Admin   | Edit one post              | -                                         | `object with updated post`
+DELETE | /post/:postId    | SI    | User - Admin   | Delete one post            | -                                        | `object with deleted post`
 
 The COMMENT flow for the application is:
  
