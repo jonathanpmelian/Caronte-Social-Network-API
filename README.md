@@ -19,25 +19,25 @@ METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /post            | SI    | User - Admin   | View all posts             | -                                                | `list of all posts`
 GET    | /post/:postId    | SI    | User - Admin   | View one post              | -                                               | `object a postId`
-POST   | /post            | SI    | User - Admin   | Create one post            | `user`, `title`, `content`, `category`, `publishDate`, `premium` | `object with new post`                                             | 
-PUT    | /post/:postId    | SI    | User - Admin   | Edit one post              | -                                         | `object with updated post`
-DELETE | /post/:postId    | SI    | User - Admin   | Delete one post            | -                                        | `object with deleted post`
+POST   | /post            | SI    | User - Admin   | Create one post            | `user`, `title`, `content`, `category`, `publishDate`, `premium` | `object with new post`                               | 
+PUT    | /post/:postId    | SI    | User - Admin   | Edit one post              | `user`, `title`, `content`, `category`, `publishDate`, `premium`                                        | `object with updated post`
+DELETE | /post/:postId    | SI    | User - Admin   | Delete one post            | `password`                                        | `object with deleted post`
 
 The COMMENT flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-POST   | /post/:postId/comment | SI    | User - Admin | Create a comment inside a post |                                          |
-POST   | /post/:postId/comment/:commentId   | SI    | User - Admin | Post a comment inside a comment |                            |
-PUT    | /post/:postId/comment/:commentId   | SI    | User - Admin   | Edit one comment |                                         |
+POST   | /post/:postId/comment | SI    | User - Admin | Create a comment inside a post | `user`, `content`, `like`                | `object with new comment of a post`
+POST   | /post/:postId/comment/:commentId   | SI    | User - Admin | Post a comment inside a comment | `user`, `content`, `like`  | `object with new comment of a comment`
+PUT    | /post/:postId/comment/:commentId   | SI    | User - Admin   | Edit one comment |                                         | `object with updated comment`
 
 The PROFILE flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /profile         | SI    | User - Admin   | View his profile           |                                                 |
-PUT    | /profile         | SI    | User - Admin   | Edit his profile           |                                                 |
-DELETE | /profile         | SI    | User - Admin   | Delete his profile         |                                                 |
+GET    | /profile         | SI    | User - Admin   | View his profile           | -                                               | `
+PUT    | /profile         | SI    | User - Admin   | Edit his profile           | -                                               |
+DELETE | /profile         | SI    | User - Admin   | Delete his profile         | -                                                |
 
 The PORTFOLIO flow for the application is:
  
