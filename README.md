@@ -69,14 +69,14 @@ The BOOKMARKS flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /bookmarks       | SI    | User - Admin   | View all his bookmarks     | -                                               | `user bookmarks`
-POST   | /bookmarks       | SI    | User - Admin   | Edit his bookmarks         | `user bookmarks`                                | `user updated bookmarks`
+PUT   | /bookmarks       | SI    | User - Admin   | Edit his bookmarks         | `user bookmarks`                                | `user updated bookmarks`
 
 The FEED flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /feed            | SI    | User - Admin   | View his feed              | -                                               |`user feed`
-POST   | /feed            | SI    | User - Admin   | Edit his feed              | `user feed`                                     |`user updated feed`
+PUT   | /feed            | SI    | User - Admin   | Edit his feed              | `user feed`                                     |`user updated feed`
 
 The FOLLOWERS flow for the application is:
  
@@ -89,7 +89,7 @@ The FOLLOWING flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /following       | SI    | User - Admin   | View all his follows       | -                                               | `user followings`
-POST   | /following       | SI    | User - Admin   | Edit his follows           | `user following`                                | `user updated following` 
+PUT  | /following       | SI    | User - Admin   | Edit his follows           | `user following`                                | `user updated following` 
 
 The SUBSCRIPTION flow for the application is:
  
