@@ -30,24 +30,24 @@ METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               
 POST   | /post/:postId/comment | SI    | User - Admin | Create a comment inside a post | `user`, `content`, `publishDate`         | `comment`
 POST   | /post/:postId/comment/:commentId   | SI    | User - Admin | Post a comment inside a comment | `user`, `content`, `publishDate` | `comment`
 PUT    | /post/:postId/comment/:commentId   | SI    | User - Admin   | Edit one comment | `content`                               | `updated comment`
-DELETE    | /post/:postId/comment/:commentId   | SI    |    Admin       | Delete one comment | -                                  | `empty object`
+DELETE | /post/:postId/comment/:commentId   | SI    |    Admin       | Delete one comment | -                                     | `empty object`
 
 The PROFILE flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /profile         | SI    | User - Admin   | View his profile           | -                                               | `user`
-PUT    | /profile         | SI    | User - Admin   | Edit his profile           | `password` `username` `photo` `description` `mailing` `country` | `updated user`
-DELETE | /profile         | SI    | User - Admin   | Delete his profile         | -                                               | `empty object`
+GET    | /user/profile         | SI    | User - Admin   | View his profile           | -                                               | `user`
+PUT    | /user/profile         | SI    | User - Admin   | Edit his profile           | `password` `username` `photo` `description` `mailing` `country` | `updated user`
+DELETE | /user/profile         | SI    | User - Admin   | Delete his profile         | -                                               | `empty object`
 
 The PORTFOLIO flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /portfolio       | SI    | User - Admin   | View his portfolio         |  -                                              | `user portfolio`
-POST   | /portfolio       | SI    | User - Admin   | Create his portfolio       |  `coin` `amount` `price` `date`                 | `new user portfolio`
-PUT    | /portfolio       | SI    | User - Admin   | Edit his portfolio         |  `coin` `amount` `price` `dat                   | `updated user portfolio` 
-DELETE | /portfolio       | SI    | User - Admin   | Delete his portfolio       |  -                                              | `empty object`
+GET    | /user/portfolio       | SI    | User - Admin   | View his portfolio         |  -                                              | `user portfolio`
+POST   | /user/portfolio       | SI    | User - Admin   | Create his portfolio       |  `coin` `amount` `price` `date`                 | `new user portfolio`
+PUT    | /user/portfolio       | SI    | User - Admin   | Edit his portfolio         |  `coin` `amount` `price` `dat                   | `updated user portfolio` 
+DELETE | /user/portfolio       | SI    | User - Admin   | Delete his portfolio       |  -                                              | `empty object`
 
 The CHAT flow for the application is:
  
@@ -61,55 +61,57 @@ The NOTIFICATION flow for the application is:
 
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /notification    | SI    | User - Admin   | View all his notification  | -                                               | `all user notifications`
-DELETE | /notification    | SI    | User - Admin   | Delete one notification    | -                                               | `empty object`
+GET    | /user/notification    | SI    | User - Admin   | View all his notification  | -                                               | `all user notifications`
+DELETE | /user/notification    | SI    | User - Admin   | Delete one notification    | -                                               | `empty object`
 
 The BOOKMARKS flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /bookmarks       | SI    | User - Admin   | View all his bookmarks     | -                                               | `user bookmarks`
-PUT   | /bookmarks       | SI    | User - Admin   | Edit his bookmarks         | `user bookmarks`                                | `user updated bookmarks`
+GET    | /user/bookmarks       | SI    | User - Admin   | View all his bookmarks     | -                                               | `user bookmarks`
+POST   | /user/bookmarks       | SI    | User - Admin   | Add one bookmark           | `user bookmarks`                                | `user updated bookmarks`
+DELETE | /user/bookmarks       | SI    | User - Admin   | Delete one bookmark        | `user bookmarks`                                | `user updated bookmarks`
 
 The FEED flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /feed            | SI    | User - Admin   | View his feed              | -                                               |`user feed`
-PUT   | /feed            | SI    | User - Admin   | Edit his feed              | `user feed`                                     |`user updated feed`
+GET    | /user/feed            | SI    | User - Admin   | View his feed              | -                                               |`user feed`
+DELETE | /user/feed            | SI    | User - Admin   | Delete one user post feed  | `user feed`                                     |`user updated feed`
 
 The FOLLOWERS flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /followers       | SI    | User - Admin   | View all his follower      | -                                               | `user followers`
+GET    | /user/followers       | SI    | User - Admin   | View all his follower      | -                                               | `user followers`
 
 The FOLLOWING flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /following       | SI    | User - Admin   | View all his follows       | -                                               | `user followings`
-PUT  | /following       | SI    | User - Admin   | Edit his follows           | `user following`                                | `user updated following` 
+GET    | /user/following       | SI    | User - Admin   | View all his follows       | -                                               | `user followings`
+POST   | /user/following       | SI    | User - Admin   | Add one follow             | `user following`                                | `user updated following`
+DELETE | /user/following       | SI    | User - Admin   | Delete one follow          | `user following`                                | `user updated following` 
 
 The SUBSCRIPTION flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /subscriptions   | SI    | User - Admin   | View all his subscriptions | -                                               | `user subscriptions`
-POST   | /subscriptions   | SI    | User - Admin   | Create one subscription    | `user` `type`                                   | `user new subscription`
+GET    | /user/subscriptions   | SI    | User - Admin   | View all his subscriptions | -                                               | `user subscriptions`
+POST   | /user/subscriptions   | SI    | User - Admin   | Create one subscription    | `user` `type`                                   | `user new subscription`
 
 The SUBSCRIBERS flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /subscribers     | SI    | User - Admin   | View all his subscribers   | -                                               | `user subscribers`
+GET    | /user/subscribers     | SI    | User - Admin   | View all his subscribers   | -                                               | `user subscribers`
 
 The PRIVACY flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /privacy         | SI    | User - Admin   | View all his privacy options | -                                             | `user privacy`
-PUT    | /privacy         | SI    | User - Admin   | Edit his privacy options   | `postNotifcation` `commentNotification`         | `user updated privacy`
+GET    | /user/privacy         | SI    | User - Admin   | View all his privacy options | -                                             | `user privacy`
+PUT    | /user/privacy         | SI    | User - Admin   | Edit his privacy options   | `postNotifcation` `commentNotification`         | `user updated privacy`
 
 The REPORTS flow for the application is:
  
