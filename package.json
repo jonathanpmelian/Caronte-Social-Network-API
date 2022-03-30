@@ -1,0 +1,29 @@
+{
+  "name": "proyecto-3.-backend",
+  "version": "1.0.0",
+  "description": "## API Endpoints",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathanpmelian/Proyecto-3.-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathanpmelian/Proyecto-3.-Backend/issues"
+  },
+  "homepage": "https://github.com/jonathanpmelian/Proyecto-3.-Backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.9",
+    "morgan": "^1.10.0"
+  }
+}
