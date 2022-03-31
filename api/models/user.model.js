@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
     message: "{VALUE} is not supported",
     default: "User",
   },
+  posts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "post",
+    },
+  ],
 });
 
 const UserModel = mongoose.model("user", userSchema);
