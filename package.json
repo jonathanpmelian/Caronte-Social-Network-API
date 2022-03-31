@@ -4,7 +4,8 @@
   "description": "## API Endpoints",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./index.js"
+    "start": "nodemon ./api/index.js",
+    "test": "eslint ./api --fix"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.9",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.12.0"
   }
 }
