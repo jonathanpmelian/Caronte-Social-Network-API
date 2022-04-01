@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const commentSchema = require("../models/comment.model");
 
 const postSchema = new mongoose.Schema({
   user: {
@@ -21,7 +22,8 @@ const postSchema = new mongoose.Schema({
   ],
   category: {
     type: String,
-    enum: ["Tecnical"],
+    enum: ["technical", "fundamental", "general"],
+    required: true,
   },
   likes: [
     {
@@ -53,7 +55,10 @@ const postSchema = new mongoose.Schema({
   ],
   premium: {
     type: Boolean,
+    required: true,
+    default: false,
   },
+  comments: [commentSchema],
 });
 
 const PostModel = mongoose.model("post", postSchema);

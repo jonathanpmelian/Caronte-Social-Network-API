@@ -27,4 +27,4 @@ const commentSchema = new mongoose.Schema({
   },
 });
 
-module.exoport = commentSchema;
+module.exports = commentSchema;
