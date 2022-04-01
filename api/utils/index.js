@@ -22,4 +22,17 @@ async function checkAuth(req, res, next) {
   }
 }
 
-module.exports = checkAuth;
+async function checkAdmin(req, res, next) {
+  try {
+    if (res.locals.user.role === "Admin") {
+      next();
+    } else {
+      res.status(403).send("User not authorized");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(`Error authorizing user: ${err}`);
+  }
+}
+
+module.exports = { checkAuth, checkAdmin };

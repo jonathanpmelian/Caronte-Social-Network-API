@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     message: "{VALUE} is not supported",
     default: "User",
   },
+  premium: {
+    type: Boolean,
+    default: false,
+  },
   feed: [
     {
       type: mongoose.Schema.Types.ObjectId,
