@@ -128,4 +128,4 @@ METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               
 GET    | /users           | SI    |  User - Admin  | View all users             | -                                               | `all users`
 GET    | /users/:userId   | SI    |  User - Admin  | View one user              | -                                               | `user`
 PUT    | /users/:userId   | SI    |     Admin      | Edit one user              |  `role` `premium`                               | `updated user`
-DELETE | /users           | SI    |     Admin      | Delete one user            | -                                               | `empty object`
+DELETE | /users/:userId   | SI    |     Admin      | Delete one user            | -                                               | `empty object`
