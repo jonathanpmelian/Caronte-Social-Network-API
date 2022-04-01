@@ -126,5 +126,6 @@ The USERS flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /users           | SI    |  User - Admin  | View all users             | -                                               | `all users`
-PUT    | /users           | SI    |     Admin      | Edit one user              |  `role` `premium`                               | `updated user`
+GET    | /users/:userId   | SI    |  User - Admin  | View one user              | -                                               | `user`
+PUT    | /users/:userId   | SI    |     Admin      | Edit one user              |  `role` `premium`                               | `updated user`
 DELETE | /users           | SI    |     Admin      | Delete one user            | -                                               | `empty object`
