@@ -90,8 +90,8 @@ The FOLLOWING flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /user/following       | SI    | User - Admin   | View all his follows       | -                                               | `user followings`
-POST   | /user/following       | SI    | User - Admin   | Add one follow             | `user following`                                | `user updated following`
-DELETE | /user/following       | SI    | User - Admin   | Delete one follow          | `user following`                                | `user updated following` 
+POST   | /user/following/:userId | SI    | User - Admin   | Add one follow             | `user following`                                | `user updated following`
+DELETE | /user/following/:userId | SI    | User - Admin   | Delete one follow          | `user following`                                | `user updated following` 
 
 The SUBSCRIPTION flow for the application is:
  
