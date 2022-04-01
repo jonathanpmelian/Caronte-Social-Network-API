@@ -1,10 +1,10 @@
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
-const SearchCategoriesModel = require("../models/searchCategories");
 
 async function createPost(req, res) {
   try {
     req.body.user = res.locals.user.id;
+    req.body.summary = req.body.content.substring(0, 200);
 
     const post = await PostModel.create(req.body);
     await post.save();
@@ -19,15 +19,6 @@ async function createPost(req, res) {
       await user.save();
     }
 
-    let categories = await SearchCategoriesModel.findOne();
-
-    if (categories.length === 0) {
-      categories = await SearchCategoriesModel.create({});
-    }
-    const key = req.body.category;
-    categories[key].push(post.id);
-    await categories.save();
-
     res.status(200).json(post);
   } catch (err) {
     console.log(err);
@@ -37,10 +28,24 @@ async function createPost(req, res) {
 
 async function getAllPost(req, res) {
   try {
-    const post = await PostModel.find({
-      category: req.query.category,
-      title: { $regex: req.query.input || "", $options: "i" },
-    });
+    const post = await PostModel.find(
+      {
+        category: req.query.category,
+        title: { $regex: req.query.input || "", $options: "i" },
+      },
+      [
+        "user",
+        "title",
+        "summary",
+        "category",
+        "premium",
+        "publishDate",
+        "likes",
+        "dislikes",
+        "comments",
+        "bookedTimes",
+      ]
+    );
 
     res.status(200).json(post);
   } catch (err) {
@@ -51,7 +56,7 @@ async function getAllPost(req, res) {
 
 async function getOnePost(req, res) {
   try {
-    const post = await PostModel.findById(req.params.postId);
+    const post = await PostModel.findById(req.params.postId, "-summary");
 
     res.status(200).json(post);
   } catch (err) {
@@ -156,13 +161,6 @@ async function deleteOnePost(req, res) {
         await user.save();
       }
       await PostModel.findByIdAndDelete(req.params.postId);
-
-      const searchCategories = await SearchCategoriesModel.findOne();
-      const indexCategory = searchCategories[post.category].findIndex(
-        (elem) => elem._id.toString() === post.id
-      );
-      searchCategories[post.category].splice(indexCategory, 1);
-      await searchCategories.save();
 
       res.status(200).send("Post has been deleted");
     } else {
