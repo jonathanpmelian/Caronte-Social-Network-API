@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const commentSchema = require("../models/comment.model");
 
 const postSchema = new mongoose.Schema({
   user: {
@@ -54,6 +55,10 @@ const postSchema = new mongoose.Schema({
   premium: {
     type: Boolean,
   },
+  comments: [
+    commentSchema
+  ]
+
 });
 
 const PostModel = mongoose.model("post", postSchema);
