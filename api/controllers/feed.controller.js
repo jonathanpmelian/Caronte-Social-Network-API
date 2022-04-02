@@ -2,7 +2,6 @@ const UserModel = require("../models/user.model");
 
 async function getMyFeed(req, res) {
   try {
-    console.log(res.locals.user);
     const user = await UserModel.findById(res.locals.user.id).populate({
       path: "feed",
       select: "-content",
