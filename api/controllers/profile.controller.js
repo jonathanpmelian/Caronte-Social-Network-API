@@ -1,73 +1,54 @@
-const UserModel = require("../models/user.model");
 const PostModel = require("../models/post.model");
+const UserModel = require("../models/user.model");
 
-async function getAllUsers(req, res) {
+async function getMyProfile(req, res) {
   try {
-    if (res.locals.user.role === "Admin") {
-      const users = await UserModel.find(
-        { name: { $regex: req.query.input || "", $options: "i" } },
-        ["name", "surname", "username", "photo", "role"]
-      );
-
-      return res.status(200).json(users);
-    }
-
-    const users = await UserModel.find(
-      { name: { $regex: req.query.input || "", $options: "i" } },
-      ["name", "surname", "username", "photo"]
-    );
-
-    res.status(200).json(users);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send(`Error showing all users: ${err}`);
-  }
-}
-
-async function getOneUser(req, res) {
-  try {
-    const user = await UserModel.findById(req.params.userId, [
+    const user = await UserModel.findById(res.locals.user.id, [
       "name",
       "surname",
       "username",
+      "email",
       "country",
       "description",
       "photo",
+      "premium",
+      "influence",
       "posts",
-      "following",
-      "followers",
-      "subscribers",
     ]);
 
     res.status(200).json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).send(`Error showing one user: ${err}`);
+    res.status(500).send(`Error getting my profile: ${err}`);
   }
 }
 
-async function editOneUser(req, res) {
+async function editMyProfile(req, res) {
   try {
     const user = await UserModel.findByIdAndUpdate(
-      req.params.userId,
-      { role: req.body.role, premium: req.body.premium },
+      res.locals.user.id,
+      {
+        photo: req.body.photo,
+        description: req.body.description,
+      },
       {
         new: true,
         runValidators: true,
-        select: "role username name surname premium",
+        select:
+          "name surname username description email country description photo premium influence posts",
       }
     );
 
     res.status(200).json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).send(`Error editing one user: ${err}`);
+    res.status(500).send(`Error editing my profile: ${err}`);
   }
 }
 
-async function deleteOneUser(req, res) {
+async function deleteMyAccount(req, res) {
   try {
-    const user = await UserModel.findById(req.params.userId).populate("posts");
+    const user = await UserModel.findById(res.locals.user.id).populate("posts");
 
     for (let i = 0; i < user.following.length; i++) {
       const userFollowed = await UserModel.findById(
@@ -132,18 +113,17 @@ async function deleteOneUser(req, res) {
       await PostModel.findByIdAndDelete(user.posts[i]);
     }
 
-    await UserModel.findByIdAndDelete(req.params.userId);
+    await UserModel.findByIdAndDelete(res.locals.user.id);
 
-    res.status(200).send("User Account deleted correctly");
+    res.status(200).send("Your account have been deleted succesfully");
   } catch (err) {
     console.log(err);
-    res.status(500).send(`Error deleting one user: ${err}`);
+    res.status(500).send(`Error deletin my account: ${err}`);
   }
 }
 
 module.exports = {
-  getAllUsers,
-  getOneUser,
-  editOneUser,
-  deleteOneUser,
+  getMyProfile,
+  editMyProfile,
+  deleteMyAccount,
 };

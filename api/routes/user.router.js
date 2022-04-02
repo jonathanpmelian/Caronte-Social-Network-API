@@ -17,6 +17,12 @@ const {
 
 const { getMyFeed, removePostFeed } = require("../controllers/feed.controller");
 
+const {
+  getMyProfile,
+  editMyProfile,
+  deleteMyAccount,
+} = require("../controllers/profile.controller");
+
 router.get("/following", checkAuth, getAllFollowing);
 router.post("/following/:userId", checkAuth, addFollowing);
 router.delete("/following/:userId", checkAuth, deleteOneFollowing);
@@ -28,5 +34,9 @@ router.delete("/bookmarks/:postId", checkAuth, deleteOneBookmark);
 
 router.get("/feed", checkAuth, getMyFeed);
 router.delete("/feed/:postId", checkAuth, removePostFeed);
+
+router.get("/profile", checkAuth, getMyProfile);
+router.put("/profile", checkAuth, editMyProfile);
+router.delete("/profile", checkAuth, deleteMyAccount);
 
 module.exports = router;
