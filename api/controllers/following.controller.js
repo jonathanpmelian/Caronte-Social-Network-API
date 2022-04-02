@@ -4,7 +4,7 @@ async function getAllFollowing(req, res) {
   try {
     const user = await UserModel.findById(res.locals.user.id).populate({
       path: "following",
-      select: "name",
+      select: "name surname username photo premium",
     });
 
     res.status(200).json(user.following);
@@ -32,7 +32,7 @@ async function addFollowing(req, res) {
       const userUpdated = await UserModel.findById(res.locals.user.id).populate(
         {
           path: "following",
-          select: "name",
+          select: "name surname username photo premium",
         }
       );
       res.status(200).json(userUpdated.following);
