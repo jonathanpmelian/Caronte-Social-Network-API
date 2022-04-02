@@ -70,7 +70,7 @@ METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /user/bookmarks       | SI    | User - Admin   | View all his bookmarks     | -                                               | `user bookmarks`
 POST   | /user/bookmarks       | SI    | User - Admin   | Add one bookmark           | `user bookmarks`                                | `user updated bookmarks`
-DELETE | /user/bookmarks       | SI    | User - Admin   | Delete one bookmark        | `user bookmarks`                                | `user updated bookmarks`
+DELETE | /user/bookmarks/:postId | SI    | User - Admin   | Delete one bookmark        | `user bookmarks`                                | `user updated bookmarks`
 
 The FEED flow for the application is:
  
