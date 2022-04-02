@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  influence: {
+    type: Number,
+    default: 0,
+  },
   feed: [
     {
       type: mongoose.Schema.Types.ObjectId,

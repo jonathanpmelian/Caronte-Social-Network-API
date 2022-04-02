@@ -68,7 +68,7 @@ async function deleteOneUser(req, res) {
   try {
     const user = await UserModel.findById(req.params.userId);
 
-    for (let i = 0; i < user.following; i++) {
+    for (let i = 0; i < user.following.length; i++) {
       const userFollowed = await UserModel.findById(
         user.following[i].toString()
       );
@@ -79,10 +79,11 @@ async function deleteOneUser(req, res) {
       await userFollowed.save();
     }
 
-    for (let i = 0; i < user.followers; i++) {
+    for (let i = 0; i < user.followers.length; i++) {
       const userFollower = await UserModel.findById(
         user.followers[i].toString()
       );
+      userFollower.influence -= 1;
       const index = userFollower.following.findIndex(
         (elem) => elem._id.toString() === user.id
       );
@@ -90,7 +91,7 @@ async function deleteOneUser(req, res) {
       await userFollower.save();
     }
 
-    for (let i = 0; i < user.subscriptions; i++) {
+    for (let i = 0; i < user.subscriptions.length; i++) {
       const userSubscribed = await UserModel.findById(
         user.subscriptions[i].toString()
       );
