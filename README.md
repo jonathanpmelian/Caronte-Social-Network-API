@@ -69,7 +69,6 @@ The BOOKMARKS flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /user/bookmarks       | SI    | User - Admin   | View all his bookmarks     | -                                               | `user bookmarks`
-POST   | /user/bookmarks       | SI    | User - Admin   | Add one bookmark           | `user bookmarks`                                | `user updated bookmarks`
 DELETE | /user/bookmarks/:postId | SI    | User - Admin   | Delete one bookmark        | `user bookmarks`                                | `user updated bookmarks`
 
 The FEED flow for the application is:
