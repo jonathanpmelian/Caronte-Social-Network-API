@@ -6,6 +6,10 @@ async function createPost(req, res) {
     req.body.user = res.locals.user.id;
     req.body.summary = req.body.content.substring(0, 200);
 
+    if (req.body.premium === true && !res.locals.user.premium) {
+      return res.status(403).send("Only premium users can create premium post");
+    }
+
     const post = await PostModel.create(req.body);
     await post.save();
 
@@ -68,12 +72,9 @@ async function getOnePost(req, res) {
 async function editOnePost(req, res) {
   try {
     const post = await PostModel.findById(req.params.postId);
+    const creator = await UserModel.findById(post.user);
 
-    if (
-      req.body.likes !== undefined ||
-      req.body.dislikes !== undefined ||
-      req.body.bookedTimes !== undefined
-    ) {
+    if (req.body.likes || req.body.dislikes || req.body.bookedTimes) {
       const user = await UserModel.findById(
         req.body.likes || req.body.dislikes || req.body.bookmarks
       );
@@ -84,6 +85,14 @@ async function editOnePost(req, res) {
 
       if (index === -1) {
         post[key].push(user.id);
+        if (key === "likes") {
+          creator.influence += 1;
+          await creator.save();
+        }
+        if (key === "dislikes") {
+          creator.influence -= 1;
+          await creator.save();
+        }
         await post.save();
 
         if (key === "bookedTimes") {
@@ -93,6 +102,14 @@ async function editOnePost(req, res) {
         res.status(200).json(post);
       } else {
         post[key].splice(index, 1);
+        if (key === "likes") {
+          creator.influence -= 1;
+          await creator.save();
+        }
+        if (key === "dislikes") {
+          creator.influence += 1;
+          await creator.save();
+        }
         await post.save();
 
         if (key === "bookedTimes") {
@@ -143,8 +160,10 @@ async function deleteOnePost(req, res) {
       creator.posts.splice(indexUserPosts, 1);
       await creator.save();
 
-      for (let i = 0; i < post.bookedTimes; i++) {
-        const user = await UserModel.findById(post.bookedTimes[i].toString());
+      for (let i = 0; i < post.bookedTimes.length; i++) {
+        const user = await UserModel.findById(
+          post.bookedTimes[i]._id.toString()
+        );
         const index = user.bookmarks.findIndex(
           (elem) => elem._id.toString() === post.id
         );
@@ -152,8 +171,10 @@ async function deleteOnePost(req, res) {
         await user.save();
       }
 
-      for (let i = 0; i < creator.followers; i++) {
-        const user = await UserModel.findById(creator.followers[i].toString());
+      for (let i = 0; i < creator.followers.length; i++) {
+        const user = await UserModel.findById(
+          creator.followers[i]._id.toString()
+        );
         const index = user.feed.findIndex(
           (elem) => elem._id.toString() === post.id
         );

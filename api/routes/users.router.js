@@ -12,6 +12,6 @@ const {
 router.get("/", checkAuth, getAllUsers);
 router.get("/:userId", checkAuth, getOneUser);
 router.put("/:userId", checkAuth, checkAdmin, editOneUser);
-router.delete("/users/:userId", checkAuth, checkAdmin, deleteOneUser);
+router.delete("/:userId", checkAuth, checkAdmin, deleteOneUser);
 
 module.exports = router;
