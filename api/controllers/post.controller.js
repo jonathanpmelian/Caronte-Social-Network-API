@@ -76,7 +76,7 @@ async function editOnePost(req, res) {
 
     if (req.body.likes || req.body.dislikes || req.body.bookedTimes) {
       const user = await UserModel.findById(
-        req.body.likes || req.body.dislikes || req.body.bookmarks
+        req.body.likes || req.body.dislikes || req.body.bookedTimes
       );
       const key = Object.keys(req.body)[0];
       const index = post[key].findIndex(
