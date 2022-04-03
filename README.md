@@ -44,10 +44,11 @@ The PORTFOLIO flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /user/portfolio       | SI    | User - Admin   | View his portfolio         |  -                                              | `user portfolio`
+GET    | /user/portfolio       | SI    | User - Admin   | View all his portfolio     |  -                                              | `all user portfolio`
+GET    | /user/portfolio/:portfolioId | SI    | User - Admin   | View his portfolio  |  -                                              | `user portfolio`
 POST   | /user/portfolio       | SI    | User - Admin   | Create his portfolio       |  `coin` `amount` `price` `date`                 | `new user portfolio`
-PUT    | /user/portfolio       | SI    | User - Admin   | Edit his portfolio         |  `coin` `amount` `price` `dat                   | `updated user portfolio` 
-DELETE | /user/portfolio       | SI    | User - Admin   | Delete his portfolio       |  -                                              | `empty object`
+PUT    | /user/portfolio/:portfolioId | SI    | User - Admin   | Edit his portfolio  |  `coin` `amount` `price` `dat                   | `updated user portfolio` 
+DELETE | /user/portfolio/:portfolioId | SI    | User - Admin   | Delete his portfolio       |  -                                              | `empty object`
 
 The CHAT flow for the application is:
  
