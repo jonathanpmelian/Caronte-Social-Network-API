@@ -9,12 +9,27 @@ const portfolioSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  coins: [coinSchema],
   currency: {
     type: String,
     required: true,
     enum: ["EUR", "USD", "JPY"],
   },
+  adquisitionCost: {
+    type: Number,
+  },
+  holding: {
+    type: Number,
+  },
+  balance: {
+    type: Number,
+  },
+  bestCrypto: {
+    type: String,
+  },
+  worstCrypto: {
+    type: String,
+  },
+  coins: [coinSchema],
 });
 
 const PortfolioModel = mongoose.model("portfolio", portfolioSchema);

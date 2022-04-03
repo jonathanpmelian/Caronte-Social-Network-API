@@ -67,9 +67,36 @@ async function updatePrice(req, res) {
         (portfolio.coins[i].pl / portfolio.coins[i].totalInit) *
         100
       ).toFixed(2);
-
-      await portfolio.save();
     }
+    portfolio.adquisitionCost = portfolio.coins.reduce(
+      (p, c) => p + c.totalInit,
+      0
+    );
+
+    portfolio.holding = portfolio.coins
+      .reduce((p, c) => p + c.total, 0)
+      .toFixed(2);
+
+    portfolio.balance = (portfolio.holding - portfolio.adquisitionCost).toFixed(
+      2
+    );
+    const bestCrypto = Math.max(
+      ...Object.values(portfolio.coins.map((elem) => (elem = elem.change)))
+    );
+    const worstCrypto = Math.min(
+      ...Object.values(portfolio.coins.map((elem) => (elem = elem.change)))
+    );
+    portfolio.bestCrypto = `${
+      portfolio.coins[
+        portfolio.coins.findIndex((elem) => elem.change === bestCrypto)
+      ].coin
+    } ${bestCrypto}%`;
+    portfolio.worstCrypto = `${
+      portfolio.coins[
+        portfolio.coins.findIndex((elem) => elem.change === worstCrypto)
+      ].coin
+    } ${worstCrypto}%`;
+    await portfolio.save();
 
     res.status(200).json(portfolio);
   } catch (err) {
