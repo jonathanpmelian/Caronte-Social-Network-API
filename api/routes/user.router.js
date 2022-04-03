@@ -31,6 +31,10 @@ const {
   deletePortfolio,
 } = require("../controllers/portfolio.controller");
 
+const coinRouter = require("./coin.router");
+
+router.use("/portfolio/:portfolioId/coin", coinRouter);
+
 router.get("/following", checkAuth, getAllFollowing);
 router.post("/following/:userId", checkAuth, addFollowing);
 router.delete("/following/:userId", checkAuth, deleteOneFollowing);
