@@ -29,6 +29,12 @@ const portfolioSchema = new mongoose.Schema({
   worstCrypto: {
     type: String,
   },
+  holdingHistory: [
+    {
+      amount: Number,
+      date: Date,
+    },
+  ],
   coins: [coinSchema],
 });
 
