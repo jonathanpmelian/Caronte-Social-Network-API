@@ -15,12 +15,19 @@ const commentSchema = new mongoose.Schema({
       ref: "user",
     },
   ],
+  disLikes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
   publisDate: {
     type: Date,
     default: Date.now(),
   },
   edited: {
     type: Boolean,
+    default: false
   },
   lastUpdate: {
     type: Date,

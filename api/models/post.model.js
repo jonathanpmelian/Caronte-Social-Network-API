@@ -62,6 +62,7 @@ const postSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+
   comments: [commentSchema],
 });
 
