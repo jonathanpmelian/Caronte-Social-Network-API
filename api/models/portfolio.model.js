@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const coinSchema = require("../models/coin.model");
 
 const portfolioSchema = new mongoose.Schema({
   title: {
@@ -8,14 +9,11 @@ const portfolioSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  coins: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "coin",
-    },
-  ],
+  coins: [coinSchema],
   currency: {
     type: String,
+    required: true,
+    enum: ["EUR", "USD", "JPY"],
   },
 });
 

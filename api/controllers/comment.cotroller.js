@@ -63,6 +63,7 @@ async function updateComment(req, res) {
       const comment = post.comments.id(req.params.commentId);
       comment.set(req.body);
       await post.save();
+
       res.status(200).json(post.comments);
     } else {
       res.status(403).send("User No Authorized");
@@ -77,7 +78,8 @@ async function deleteComment(req, res) {
   try {
     const post = await PostModel.findById(req.params.postId);
     post.comments.remove(req.params.commentId);
-    post.save();
+    await post.save();
+
     res.status(200).send("Comment Deleted");
   } catch (err) {
     res.status(500).send(`Request Error: ${err}`);
