@@ -17,6 +17,15 @@ const coinSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  total: {
+    type: Number,
+  },
+  PL: {
+    type: Number,
+  },
+  Change: {
+    type: Number,
+  },
 });
 
 const CoinModel = mongoose.model("coin", coinSchema);
