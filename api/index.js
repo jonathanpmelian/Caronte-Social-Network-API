@@ -32,7 +32,7 @@ const mongoose = require("mongoose");
         console.log(err);
       }
       console.info(">".repeat(40));
-      console.info("🧑‍🍳  Caronte Server Live");
+      console.info("🪙   Caronte Server Live");
       console.info(`📡  PORT: http://localhost:${PORT}`);
       console.info(">".repeat(40) + "\n");
     });

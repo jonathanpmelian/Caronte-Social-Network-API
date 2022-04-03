@@ -15,6 +15,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  summary: {
+    type: String,
+    required: true,
+  },
   images: [
     {
       type: String,
@@ -22,7 +26,8 @@ const postSchema = new mongoose.Schema({
   ],
   category: {
     type: String,
-    enum: ["Tecnical"],
+    enum: ["technical", "fundamental", "general"],
+    required: true,
   },
   likes: [
     {
@@ -54,11 +59,11 @@ const postSchema = new mongoose.Schema({
   ],
   premium: {
     type: Boolean,
+    required: true,
+    default: false,
   },
-  comments: [
-    commentSchema
-  ]
 
+  comments: [commentSchema],
 });
 
 const PostModel = mongoose.model("post", postSchema);
