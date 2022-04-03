@@ -46,9 +46,17 @@ METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /user/portfolio       | SI    | User - Admin   | View all his portfolio     |  -                                              | `all user portfolio`
 GET    | /user/portfolio/:portfolioId | SI    | User - Admin   | View his portfolio  |  -                                              | `user portfolio`
-POST   | /user/portfolio       | SI    | User - Admin   | Create his portfolio       |  `coin` `amount` `price` `date`                 | `new user portfolio`
-PUT    | /user/portfolio/:portfolioId | SI    | User - Admin   | Edit his portfolio  |  `coin` `amount` `price` `dat                   | `updated user portfolio` 
-DELETE | /user/portfolio/:portfolioId | SI    | User - Admin   | Delete his portfolio       |  -                                              | `empty object`
+POST   | /user/portfolio       | SI    | User - Admin   | Create his portfolio       |  `title` `description`                          | `new user portfolio`
+PUT    | /user/portfolio/:portfolioId | SI    | User - Admin   | Edit his portfolio  |  `title` `description`                          | `updated user portfolio` 
+DELETE | /user/portfolio/:portfolioId | SI    | User - Admin   | Delete his portfolio       |  -                                       | `empty object`
+
+The COIN flow for the application is:
+ 
+METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
+-------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
+POST   | /user/portfolio/coin | SI    | User - Admin   | Create a coin       |  `coin` `amount` `price` `date`                 | `new user portfolio coin`
+PUT    | /user/portfolio/:portfolioId/coin/:coinId | SI    | User - Admin   | Edit coin |  `coin` `amount` `price` `dat        | `updated user portfolio coin` 
+DELETE | /user/portfolio/:portfolioId/coin/:coinId | SI    | User - Admin   | Delete coin |  -                                 | `portfolio`
 
 The CHAT flow for the application is:
  
