@@ -47,10 +47,10 @@ router.get("/profile", checkAuth, getMyProfile);
 router.put("/profile", checkAuth, editMyProfile);
 router.delete("/profile", checkAuth, deleteMyAccount);
 
-router.get("/portfolio", checkAuth, getAllPortfolio);
-router.get("/portfolio/:portfolioId", checkAuth, getOnePortfolio);
-router.post("/portfolio", checkAuth, addPortfolio);
-router.put("/portfolio/portfolioId", checkAuth, editMyPortfolio);
-router.delete("/portfolio/:portfolioId", checkAuth, deletePortfolio);
+// router.get("/portfolio", checkAuth, getAllPortfolio);
+// router.get("/portfolio/:portfolioId", checkAuth, getOnePortfolio);
+// router.post("/portfolio", checkAuth, addPortfolio);
+// router.put("/portfolio/portfolioId", checkAuth, editMyPortfolio);
+// router.delete("/portfolio/:portfolioId", checkAuth, deletePortfolio);
 
 module.exports = router;

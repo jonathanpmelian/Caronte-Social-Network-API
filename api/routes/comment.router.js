@@ -1,17 +1,15 @@
 const router = require("express").Router({ mergeParams: true });
 
-const checkAuth = require("../utils/index");
+const { checkAuth, checkAdmin } = require("../utils/index");
 
 const {
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
 } = require("../controllers/comment.cotroller");
 
 router.post("/", checkAuth, createComment);
 router.put("/:commentId", checkAuth, updateComment);
-router.delete("/:commentId", checkAuth, deleteComment);
-
-
+router.delete("/:commentId", checkAuth, checkAdmin, deleteComment);
 
 module.exports = router;
