@@ -18,6 +18,7 @@ async function createComment(req, res) {
 async function updateComment(req, res) {
   try {
     const post = await PostModel.findById(req.params.postId)
+    const creator = await UserModel.findById(post.user)
     if (req.body.likes || req.body.dislike) {
       const user = await UserModel.findById(req.body.likes || req.body.dislikes)
       const key = Object.keys(req.body)[0]
@@ -26,6 +27,14 @@ async function updateComment(req, res) {
       const index = post.comments[indexComment][key].findIndex(elem => user.id === elem._id.toString())
       if (index === -1) {
         post.comments[indexComment][key].push(user.id)
+        if (key === "likes") {
+          creator.influence++
+          await creator.save();
+        }
+        if (key === "dislikes") {
+          creator.influence--
+          await creator.save();
+        }
         await post.save();
       } else {
         post.comments[indexComment][key].splice(index, 1)
