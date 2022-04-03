@@ -97,6 +97,8 @@ async function updatePrice(req, res) {
       ].coin
     } ${worstCrypto}%`;
 
+    portfolio.holdingHistory = [];
+    await portfolio.save();
     const firstDate = Math.min(
       ...Object.values(portfolio.coins.map((elem) => elem.date))
     );
@@ -105,32 +107,21 @@ async function updatePrice(req, res) {
     while (actualDate > firstDate) {
       const current = {
         date: actualDate,
-        total: 0,
+        amount: 0,
       };
 
       for (let i = 0; i < portfolio.coins.length; i++) {
         const historicalData = await cryptoAPI.get(
           `/pricehistorical?fsym=${portfolio.coins[i].coin}&tsyms=${portfolio.currency}&ts=${actualDate}`
         );
-        current.total +=
+        current.amount +=
           historicalData.data[portfolio.coins[i].coin][portfolio.currency] *
           portfolio.coins[i].amount;
       }
       portfolio.holdingHistory.push(current);
       actualDate = actualDate - 86400 * 1000;
+      await portfolio.save();
     }
-    actualDate = Date.now();
-
-    await portfolio.save();
-    //Guardar fecha y holding.
-    //Grafico Diario.
-    //Cada vez que añadimos una coin metemos una fecha, luego esa fecha y el total de esa coin se deberian de guardar en el historial.
-    //Si las fechas coinciden la cantidad se tendria que sumar.
-    //La fecha final es el dia actual
-    //la fecha inicial es la fecha de la coin con fecha de compra más antigua.
-    //Date.now() - Math.min(coin.date)
-    //Date.now() - 24horas hasta llegar a Math.min(coin.date)...mientras Date.now()-24horas > Math.min(coin.date) haremos un push de holding y fecha a holdingHistory
-    //Solo se revisan las coin que están en el portfolio.
 
     res.status(200).json(portfolio);
   } catch (err) {

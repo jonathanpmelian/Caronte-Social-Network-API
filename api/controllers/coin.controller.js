@@ -29,14 +29,6 @@ async function editOneCoin(req, res, next) {
     const coin = portfolio.coins.id(req.params.coinId);
     coin.set(req.body);
     await portfolio.save();
-    await PortfolioModel.findByIdAndUpdate(
-      req.params.portfolioId,
-      {},
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
 
     next();
   } catch (err) {
