@@ -1,5 +1,4 @@
 const axios = require("axios");
-const { application } = require("express");
 
 async function addCoin(req, res) {
   try {
