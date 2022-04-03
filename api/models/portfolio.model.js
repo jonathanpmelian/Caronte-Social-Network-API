@@ -14,6 +14,9 @@ const portfolioSchema = new mongoose.Schema({
       ref: "coin",
     },
   ],
+  currency: {
+    type: String,
+  },
 });
 
 const PortfolioModel = mongoose.model("portfolio", portfolioSchema);

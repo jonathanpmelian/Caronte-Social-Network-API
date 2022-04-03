@@ -4,10 +4,16 @@ const coinSchema = new mongoose.Schema({
   coin: {
     type: String,
     required: true,
+    enum: ["BTC", "ETH"],
   },
   amount: {
     type: Number,
     required: true,
+  },
+  currency: {
+    type: String,
+    required: true,
+    enum: ["USD"],
   },
   price: {
     type: Number,
@@ -20,10 +26,10 @@ const coinSchema = new mongoose.Schema({
   total: {
     type: Number,
   },
-  PL: {
+  pl: {
     type: Number,
   },
-  Change: {
+  change: {
     type: Number,
   },
 });
