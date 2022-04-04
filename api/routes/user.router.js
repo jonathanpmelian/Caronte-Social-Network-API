@@ -32,8 +32,10 @@ const {
 } = require("../controllers/portfolio.controller");
 
 const coinRouter = require("./coin.router");
+const chartRouter = require("./chart.router");
 
 router.use("/portfolio/:portfolioId/coin", coinRouter);
+router.use("/portfolio/:portfolioId/chart", chartRouter);
 
 router.get("/following", checkAuth, getAllFollowing);
 router.post("/following/:userId", checkAuth, addFollowing);

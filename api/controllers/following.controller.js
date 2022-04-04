@@ -35,6 +35,7 @@ async function addFollowing(req, res) {
           select: "name surname username photo premium",
         }
       );
+
       res.status(200).json(userUpdated.following);
     } else {
       res
@@ -59,17 +60,16 @@ async function deleteOneFollowing(req, res) {
     );
 
     user.following.splice(index, 1);
-    await user.save();
     user2.followers.splice(index2, 1);
     user2.influence -= 1;
-    await user2.save();
 
     for (let i = 0; i < user.feed.length; i++) {
       if (user.feed[i].user._id.toString() === req.params.userId) {
         user.feed.splice(i, 1);
-        await user.save();
       }
     }
+    await user.save();
+    await user2.save();
 
     res.status(200).send("Unfollow user done correctly");
   } catch (err) {

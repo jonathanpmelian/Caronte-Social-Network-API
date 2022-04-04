@@ -46,7 +46,8 @@ async function checkAdmin(req, res, next) {
 async function updatePrice(req, res) {
   try {
     const portfolio = await PortfolioModel.findById(
-      req.params.portfolioId
+      req.params.portfolioId,
+      "-holdingConvertion"
     ).populate("coins");
 
     for (let i = 0; i < portfolio.coins.length; i++) {
@@ -97,31 +98,7 @@ async function updatePrice(req, res) {
       ].coin
     } ${worstCrypto}%`;
 
-    portfolio.holdingHistory = [];
     await portfolio.save();
-    const firstDate = Math.min(
-      ...Object.values(portfolio.coins.map((elem) => elem.date))
-    );
-    let actualDate = Date.now();
-
-    while (actualDate > firstDate) {
-      const current = {
-        date: actualDate,
-        amount: 0,
-      };
-
-      for (let i = 0; i < portfolio.coins.length; i++) {
-        const historicalData = await cryptoAPI.get(
-          `/pricehistorical?fsym=${portfolio.coins[i].coin}&tsyms=${portfolio.currency}&ts=${actualDate}`
-        );
-        current.amount +=
-          historicalData.data[portfolio.coins[i].coin][portfolio.currency] *
-          portfolio.coins[i].amount;
-      }
-      portfolio.holdingHistory.push(current);
-      actualDate = actualDate - 86400 * 1000;
-      await portfolio.save();
-    }
 
     res.status(200).json(portfolio);
   } catch (err) {
@@ -130,4 +107,4 @@ async function updatePrice(req, res) {
   }
 }
 
-module.exports = { checkAuth, checkAdmin, updatePrice };
+module.exports = { checkAuth, checkAdmin, updatePrice, cryptoAPI };

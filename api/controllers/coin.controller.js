@@ -10,13 +10,6 @@ async function addCoin(req, res) {
     await portfolio.save();
 
     res.status(200).json(portfolio.coins);
-    // const coinAPI = axios.create({
-    //   baseURL: "http://rest.coinapi.io",
-    //   headers: { "X-CoinAPI-Key": "A1336175-CD98-4DCD-8C52-F2DFF000DC9D" },
-    // });
-
-    // const result = await coinAPI.get(`/v1/assets/BTC`);
-    // res.status(200).json(result.data);
   } catch (err) {
     console.log(err);
     res.status(500).send(`Error adding coin: ${err}`);
