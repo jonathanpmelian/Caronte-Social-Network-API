@@ -55,7 +55,7 @@ The CHART flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /user/portfolio/:portfolioId/chart | SI    | User - Admin   | View portfolio chart |  -                                  | `user portfolio chart`
-GET    | /user/portfolio/:portfolioId/piechart | SI    | User - Admin   | View portfolio chart |  -                               | `user portfolio chart`
+GET    | /user/portfolio/:portfolioId/chart/piechart | SI    | User - Admin   | View portfolio chart |  -                               | `user portfolio chart`
 PUT    | /user/portfolio/:portfolioId/chart | SI    | User - Admin   | Edit portfolio chart |  `title` `description`              | `updated user portfolio chart` 
 
 
