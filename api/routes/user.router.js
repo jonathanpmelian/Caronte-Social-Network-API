@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { checkAuth } = require("../utils/index");
+const { checkAuth, updatePrice } = require("../utils/index");
 
 const {
   getAllFollowing,
@@ -31,6 +31,12 @@ const {
   deletePortfolio,
 } = require("../controllers/portfolio.controller");
 
+const coinRouter = require("./coin.router");
+const chartRouter = require("./chart.router");
+
+router.use("/portfolio/:portfolioId/coin", coinRouter);
+router.use("/portfolio/:portfolioId/chart", chartRouter);
+
 router.get("/following", checkAuth, getAllFollowing);
 router.post("/following/:userId", checkAuth, addFollowing);
 router.delete("/following/:userId", checkAuth, deleteOneFollowing);
@@ -48,7 +54,7 @@ router.put("/profile", checkAuth, editMyProfile);
 router.delete("/profile", checkAuth, deleteMyAccount);
 
 router.get("/portfolio", checkAuth, getAllPortfolio);
-router.get("/portfolio/:portfolioId", checkAuth, getOnePortfolio);
+router.get("/portfolio/:portfolioId", checkAuth, getOnePortfolio, updatePrice);
 router.post("/portfolio", checkAuth, addPortfolio);
 router.put("/portfolio/:portfolioId", checkAuth, editMyPortfolio);
 router.delete("/portfolio/:portfolioId", checkAuth, deletePortfolio);

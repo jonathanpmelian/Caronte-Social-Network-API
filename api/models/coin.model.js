@@ -4,6 +4,7 @@ const coinSchema = new mongoose.Schema({
   coin: {
     type: String,
     required: true,
+    enum: ["BTC", "ETH"],
   },
   amount: {
     type: Number,
@@ -17,7 +18,18 @@ const coinSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  totalInit: {
+    type: Number,
+  },
+  total: {
+    type: Number,
+  },
+  pl: {
+    type: Number,
+  },
+  change: {
+    type: Number,
+  },
 });
 
-const CoinModel = mongoose.model("coin", coinSchema);
-module.exports = CoinModel;
+module.exports = coinSchema;

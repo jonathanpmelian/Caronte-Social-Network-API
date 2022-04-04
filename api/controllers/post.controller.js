@@ -87,12 +87,11 @@ async function editOnePost(req, res) {
         post[key].push(user.id);
         if (key === "likes") {
           creator.influence += 1;
-          await creator.save();
         }
         if (key === "dislikes") {
           creator.influence -= 1;
-          await creator.save();
         }
+        await creator.save();
         await post.save();
 
         if (key === "bookedTimes") {
@@ -104,12 +103,11 @@ async function editOnePost(req, res) {
         post[key].splice(index, 1);
         if (key === "likes") {
           creator.influence -= 1;
-          await creator.save();
         }
         if (key === "dislikes") {
           creator.influence += 1;
-          await creator.save();
         }
+        await creator.save();
         await post.save();
 
         if (key === "bookedTimes") {

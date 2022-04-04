@@ -14,7 +14,7 @@ async function getAllPortfolio(req, res) {
   }
 }
 
-async function getOnePortfolio(req, res) {
+async function getOnePortfolio(req, res, next) {
   try {
     const user = await UserModel.findById(res.locals.user.id);
 
@@ -23,9 +23,7 @@ async function getOnePortfolio(req, res) {
         (elem) => elem._id.toString() === req.params.portfolioId
       )
     ) {
-      const portfolio = await PortfolioModel.findById(req.params.portfolioId);
-
-      res.status(200).json(portfolio);
+      next();
     } else {
       res.status(403).send("Access denied");
     }
