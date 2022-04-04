@@ -50,6 +50,15 @@ POST   | /user/portfolio       | SI    | User - Admin   | Create his portfolio  
 PUT    | /user/portfolio/:portfolioId | SI    | User - Admin   | Edit his portfolio  |  `title` `description`                          | `updated user portfolio` 
 DELETE | /user/portfolio/:portfolioId | SI    | User - Admin   | Delete his portfolio       |  -                                       | `empty object`
 
+The CHART flow for the application is:
+ 
+METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
+-------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
+GET    | /user/portfolio/:portfolioId/chart | SI    | User - Admin   | View portfolio chart |  -                                  | `user portfolio chart`
+GET    | /user/portfolio/:portfolioId/piechart | SI    | User - Admin   | View portfolio chart |  -                               | `user portfolio chart`
+PUT    | /user/portfolio/:portfolioId/chart | SI    | User - Admin   | Edit portfolio chart |  `title` `description`              | `updated user portfolio chart` 
+
+
 The COIN flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
