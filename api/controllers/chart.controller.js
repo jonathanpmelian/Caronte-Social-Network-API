@@ -48,6 +48,34 @@ async function getChart(req, res) {
   }
 }
 
+async function getPieChart(req, res) {
+  try {
+    const portfolio = await PortfolioModel.findById(req.params.portfolioId);
+    const data = portfolio.coins
+      .map(
+        (elem) =>
+          (elem = {
+            coin: elem.coin,
+            totalInit: elem.totalInit,
+          })
+      )
+      .reduce((p, c) => {
+        const index = p.findIndex((elem) => elem.coin === c.coin);
+        if (index !== -1) {
+          p[index].totalInit += c.totalInit;
+        } else {
+          p.push(c);
+        }
+        return p;
+      }, []);
+
+    res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(`Error getting pie chart data: ${err}`);
+  }
+}
+
 async function editChart(req, res) {
   try {
     const portfolio = await PortfolioModel.findByIdAndUpdate(
@@ -66,4 +94,5 @@ async function editChart(req, res) {
 module.exports = {
   getChart,
   editChart,
+  getPieChart,
 };
