@@ -61,8 +61,19 @@ async function getAllPost(req, res) {
 async function getOnePost(req, res) {
   try {
     const post = await PostModel.findById(req.params.postId, "-summary");
-
-    res.status(200).json(post);
+    const user = await UserModel.findById(res.locals.user.id).populate("subscriptions")
+    if (post.premium) {
+      const index = user.subscriptions.findIndex(elem => {
+        elem.user._id.toString() === post.user
+      })
+      if (index !== -1) {
+        return res.status(200).json(post);
+      } else {
+        return res.status(403).send(`You must be subscribed`)
+      }
+    } else {
+      res.status(200).json(post);
+    }
   } catch (err) {
     console.log(err);
     res.status(500).send(`Error getting One Post ${err}`);
