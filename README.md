@@ -120,8 +120,8 @@ The SUBSCRIPTION flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /user/subscriptions   | SI    | User - Admin   | View all his subscriptions | -                                               | `user subscriptions`
-POST   | /user/subscriptions   | SI    | User - Admin   | Create one subscription    | `user` `type`                                   | `user new subscription`
+GET    | /user/subscriptions | SI    | User - Admin   | View all his subscriptions | -                                            | `user subscriptions`
+POST   | /user/subscriptions/:userId | SI    | User - Admin   | Create one subscription | `user` `type`                           | `user new subscription`
 
 The SUBSCRIBERS flow for the application is:
  
