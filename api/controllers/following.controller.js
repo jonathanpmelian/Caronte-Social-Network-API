@@ -27,6 +27,9 @@ async function addFollowing(req, res) {
 
       user2.followers.push(user.id);
       user2.influence += 1;
+      if (user2.premium > process.env.premiumLvl) {
+        user2.premium = true;
+      }
       await user2.save();
 
       const userUpdated = await UserModel.findById(res.locals.user.id).populate(

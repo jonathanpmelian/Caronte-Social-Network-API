@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { checkAuth } = require("../utils/index");
+const { checkAuth, checkSubscription } = require("../utils/index");
 const commentRouter = require("./comment.router");
 
 const {
@@ -13,8 +13,8 @@ const {
 router.use("/:postId/comments", commentRouter);
 
 router.post("/", checkAuth, createPost);
-router.get("/", checkAuth, getAllPost);
-router.get("/:postId", checkAuth, getOnePost);
+router.get("/", checkAuth, checkSubscription, getAllPost);
+router.get("/:postId", checkAuth, checkSubscription, getOnePost);
 router.put("/:postId", checkAuth, editOnePost);
 router.delete("/:postId", checkAuth, deleteOnePost);
 
