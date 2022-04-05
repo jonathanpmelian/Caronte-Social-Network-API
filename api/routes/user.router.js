@@ -38,6 +38,11 @@ const {
 
 const getSubscribers = require("../controllers/subscribers.controller");
 
+const {
+  getPrivacy,
+  editPrivacy,
+} = require("../controllers/privacy.controller");
+
 const coinRouter = require("./coin.router");
 const chartRouter = require("./chart.router");
 
@@ -70,5 +75,8 @@ router.post("/subscriptions/:userId", checkAuth, addSubscription);
 router.get("/subscriptions", checkAuth, getAllSubscriptions);
 
 router.get("/subscribers", checkAuth, getSubscribers);
+
+router.get("/privacy", checkAuth, getPrivacy);
+router.put("/privacy", checkAuth, editPrivacy);
 
 module.exports = router;
