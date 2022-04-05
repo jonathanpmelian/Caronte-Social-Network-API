@@ -37,6 +37,9 @@ async function updateComment(req, res) {
         post.comments[indexComment][key].push(user.id);
         if (key === "likes") {
           creator.influence++;
+          if (creator.influence > process.env.premiumLvl) {
+            creator.premium = true;
+          }
         }
         if (key === "dislikes") {
           creator.influence--;
@@ -49,6 +52,9 @@ async function updateComment(req, res) {
         }
         if (key === "dislikes") {
           creator.influence++;
+          if (creator.influence > process.env.premiumLvl) {
+            creator.premium = true;
+          }
         }
       }
       await creator.save();

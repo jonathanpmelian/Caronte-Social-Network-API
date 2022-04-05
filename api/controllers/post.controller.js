@@ -61,15 +61,17 @@ async function getAllPost(req, res) {
 async function getOnePost(req, res) {
   try {
     const post = await PostModel.findById(req.params.postId, "-summary");
-    const user = await UserModel.findById(res.locals.user.id).populate("subscriptions")
+    const user = await UserModel.findById(res.locals.user.id).populate(
+      "subscriptions"
+    );
     if (post.premium) {
-      const index = user.subscriptions.findIndex(elem => {
-        elem.user._id.toString() === post.user
-      })
+      const index = user.subscriptions.findIndex((elem) => {
+        elem.user._id.toString() === post.user;
+      });
       if (index !== -1) {
         return res.status(200).json(post);
       } else {
-        return res.status(403).send(`You must be subscribed`)
+        return res.status(403).send(`You must be subscribed`);
       }
     } else {
       res.status(200).json(post);
@@ -98,6 +100,9 @@ async function editOnePost(req, res) {
         post[key].push(user.id);
         if (key === "likes") {
           creator.influence += 1;
+          if (creator.influence > process.env.premiumLvl) {
+            creator.premium = true;
+          }
         }
         if (key === "dislikes") {
           creator.influence -= 1;
@@ -117,6 +122,9 @@ async function editOnePost(req, res) {
         }
         if (key === "dislikes") {
           creator.influence += 1;
+          if (creator.influence > process.env.premiumLvl) {
+            creator.premium = true;
+          }
         }
         await creator.save();
         await post.save();
