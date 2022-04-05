@@ -97,7 +97,7 @@ async function getAllPost(req, res) {
             if (
               post[i].user._id.toString() ===
                 user.subscriptions[j].user._id.toString() &&
-              user.subscriptions[i].available
+              user.subscriptions[j].available
             ) {
               post.splice(i, 1);
             }

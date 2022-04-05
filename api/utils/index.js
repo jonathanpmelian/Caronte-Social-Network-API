@@ -61,7 +61,7 @@ async function updatePrice(req, res) {
         portfolio.coins[i].amount * actualPrice.data[portfolio.currency];
 
       portfolio.coins[i].pl = (
-        actualPrice.data[portfolio.currency] - portfolio.coins[i].totalInit
+        portfolio.coins[i].total - portfolio.coins[i].totalInit
       ).toFixed(2);
 
       portfolio.coins[i].change = (
