@@ -107,4 +107,42 @@ async function updatePrice(req, res) {
   }
 }
 
-module.exports = { checkAuth, checkAdmin, updatePrice, cryptoAPI };
+async function checkSubscription(req, res, next) {
+  try {
+    const user = await UserModel.findById(res.locals.user.id).populate(
+      "subscriptions"
+    );
+    if (user.subscriptions.length > 0) {
+      user.subscriptions.forEach((elem) => {
+        if (elem.type === "Anual") {
+          const time = elem.date + 365 * 60 * 60 * 1000;
+          if (time < Date.now()) {
+            elem.available = false;
+          }
+        } else if (elem.type === "Monthly") {
+          const time = elem.date + 30 * 60 * 60 * 1000;
+          if (time < Date.now()) {
+            elem.available = false;
+          }
+        } else {
+          const time = elem.date + 7 * 60 * 60 * 1000;
+          if (time < Date.now()) {
+            elem.available = false;
+          }
+        }
+      });
+    }
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(`Error checking subscription status: ${err}`);
+  }
+}
+
+module.exports = {
+  checkAuth,
+  checkAdmin,
+  updatePrice,
+  cryptoAPI,
+  checkSubscription,
+};

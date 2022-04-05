@@ -18,8 +18,43 @@ async function createPost(req, res) {
     await creator.save();
 
     for (let i = 0; i < creator.followers.length; i++) {
-      const user = await UserModel.findById(creator.followers[i].toString());
-      user.feed.push(post.id);
+      const user = await UserModel.findById(
+        creator.followers[i].toString()
+      ).populate("subscriptions");
+      if (!post.premium) {
+        user.feed.push(post.id);
+      } else {
+        if (user.subscriptions.length > 0) {
+          user.subscriptions.forEach((elem) => {
+            if (elem.type === "Anual") {
+              const time = elem.date + 365 * 60 * 60 * 1000;
+              if (time < Date.now()) {
+                elem.available = false;
+              }
+            } else if (elem.type === "Monthly") {
+              const time = elem.date + 30 * 60 * 60 * 1000;
+              if (time < Date.now()) {
+                elem.available = false;
+              }
+            } else {
+              const time = elem.date + 7 * 60 * 60 * 1000;
+              if (time < Date.now()) {
+                elem.available = false;
+              }
+            }
+          });
+          for (let i = 0; i < user.subscriptions.length; i++) {
+            if (
+              user.subscriptions[i].user._id.toString() ===
+                post.user._id.toString() &&
+              user.subscriptions[i].available
+            ) {
+              user.feed.push(post.id);
+            }
+          }
+        }
+      }
+
       await user.save();
     }
 
@@ -51,6 +86,28 @@ async function getAllPost(req, res) {
       ]
     );
 
+    const user = await UserModel.findById(res.locals.user.id).populate(
+      "subscriptions"
+    );
+
+    for (let i = 0; i < post.length; i++) {
+      if (post[i].premium) {
+        if (user.subscriptions.length > 0) {
+          for (let j = 0; j < user.subscriptions.length; j++) {
+            if (
+              post[i].user._id.toString() ===
+                user.subscriptions[j].user._id.toString() &&
+              user.subscriptions[i].available
+            ) {
+              post.splice(i, 1);
+            }
+          }
+        } else {
+          post.splice(i, 1);
+        }
+      }
+    }
+
     res.status(200).json(post);
   } catch (err) {
     console.log(err);
@@ -65,10 +122,11 @@ async function getOnePost(req, res) {
       "subscriptions"
     );
     if (post.premium) {
-      const index = user.subscriptions.findIndex((elem) => {
-        elem.user._id.toString() === post.user;
-      });
-      if (index !== -1) {
+      const index = user.subscriptions.findIndex(
+        (elem) => elem.user._id.toString() === post.user._id.toString()
+      );
+
+      if (index !== -1 && user.subscriptions[index].available) {
         return res.status(200).json(post);
       } else {
         return res.status(403).send(`You must be subscribed`);
