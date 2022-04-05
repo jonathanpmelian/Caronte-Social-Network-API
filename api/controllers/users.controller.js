@@ -1,5 +1,6 @@
 const UserModel = require("../models/user.model");
 const PostModel = require("../models/post.model");
+const PortfolioModel = require("../models/portfolio.model");
 
 async function getAllUsers(req, res) {
   try {
@@ -67,7 +68,9 @@ async function editOneUser(req, res) {
 
 async function deleteOneUser(req, res) {
   try {
-    const user = await UserModel.findById(req.params.userId).populate("posts");
+    const user = await UserModel.findById(req.params.userId).populate(
+      "posts subscriptions"
+    );
 
     for (let i = 0; i < user.following.length; i++) {
       const userFollowed = await UserModel.findById(
@@ -95,8 +98,9 @@ async function deleteOneUser(req, res) {
 
     for (let i = 0; i < user.subscriptions.length; i++) {
       const userSubscribed = await UserModel.findById(
-        user.subscriptions[i].toString()
-      );
+        user.subscriptions[i].user._id.toString()
+      ).populate("subscribers");
+
       const index = userSubscribed.subscribers.findIndex(
         (elem) => elem._id.toString() === user.id
       );
@@ -126,6 +130,10 @@ async function deleteOneUser(req, res) {
       );
       follower.feed.splice(index, 1);
       await follower.save();
+    }
+
+    for (let i = 0; i < user.portfolio.length; i++) {
+      await PortfolioModel.findByIdAndDelete(user.portfolio[i]);
     }
 
     for (let i = 0; i < user.posts.length; i++) {

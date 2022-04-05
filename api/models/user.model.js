@@ -12,10 +12,12 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -92,6 +94,14 @@ const userSchema = new mongoose.Schema({
       ref: "portfolio",
     },
   ],
+  postNotification: {
+    type: Boolean,
+    default: false,
+  },
+  commentNotification: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const UserModel = mongoose.model("user", userSchema);

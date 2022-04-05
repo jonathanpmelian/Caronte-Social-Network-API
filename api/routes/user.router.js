@@ -36,6 +36,8 @@ const {
   addSubscription,
 } = require("../controllers/subscriptions.controller");
 
+const getSubscribers = require("../controllers/subscribers.controller");
+
 const coinRouter = require("./coin.router");
 const chartRouter = require("./chart.router");
 
@@ -66,5 +68,7 @@ router.delete("/portfolio/:portfolioId", checkAuth, deletePortfolio);
 
 router.post("/subscriptions/:userId", checkAuth, addSubscription);
 router.get("/subscriptions", checkAuth, getAllSubscriptions);
+
+router.get("/subscribers", checkAuth, getSubscribers);
 
 module.exports = router;

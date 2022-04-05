@@ -3,46 +3,52 @@ const UserModel = require("../models/user.model");
 
 async function addSubscription(req, res) {
   try {
-    const user = await UserModel.findById(res.locals.user.id)
-    const userSubscribe = await UserModel.findById(req.params.userId)
-    const index = userSubscribe.subscribers.findIndex(elem => {
-      return elem._id.toString() === user.id
-    })
+    const user = await UserModel.findById(res.locals.user.id);
+    const userSubscribe = await UserModel.findById(req.params.userId);
+    const index = userSubscribe.subscribers.findIndex(
+      (elem) => elem._id.toString() === user.id
+    );
+
     if (userSubscribe.premium && index === -1) {
       req.body.available = true;
-      req.body.price = req.body.type === "Anual" ? 110 : req.body.type
-        === "Monthly" ? 10 : 4;
-      req.body.user = req.params.userId
-      const subscription = await SubscriptionModel.create(req.body);
-      user.subscriptions.push(subscription);
-      userSubscribe.subscribers.push(user.id)
-      userSubscribe.influence++
-      await user.save()
-      await userSubscribe.save()
+      req.body.price =
+        req.body.type === "Anual" ? 110 : req.body.type === "Monthly" ? 10 : 4;
+      req.body.user = req.params.userId;
 
-      return res.status(200).json(subscription)
+      const subscription = await SubscriptionModel.create(req.body);
+
+      user.subscriptions.push(subscription);
+      userSubscribe.subscribers.push(user.id);
+      userSubscribe.influence++;
+
+      await user.save();
+      await userSubscribe.save();
+
+      return res.status(200).json(subscription);
     } else {
-      res.status(403).send(`User is not Premium`)
+      res.status(403).send(`User is not Premium or you are already subscribed`);
     }
   } catch (err) {
-    console.log(err)
-    res.status(500).send(`Error adding subscription ${err}`)
-
+    console.log(err);
+    res.status(500).send(`Error adding subscription ${err}`);
   }
 }
 
 async function getAllSubscriptions(req, res) {
   try {
-    const user = await UserModel.findById(res.locals.user.id);
+    const user = await UserModel.findById(res.locals.user.id).populate({
+      path: "subscriptions",
+      populate: {
+        path: "user",
+        select: "username",
+      },
+    });
 
     res.status(200).json(user.subscriptions);
   } catch (err) {
-    console.log(err)
-    res.status(500).send(`Error getting all subscriptions ${err}`)
+    console.log(err);
+    res.status(500).send(`Error getting all subscriptions ${err}`);
   }
 }
 
-
-
-
-module.exports = { addSubscription, getAllSubscriptions }
+module.exports = { addSubscription, getAllSubscriptions };
