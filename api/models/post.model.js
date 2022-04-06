@@ -62,7 +62,9 @@ const postSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
-
+  timeAgo: {
+    type: String,
+  },
   comments: [commentSchema],
 });
 
