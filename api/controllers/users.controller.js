@@ -25,6 +25,25 @@ async function getAllUsers(req, res) {
   }
 }
 
+async function getRankingUsers(req, res) {
+  try {
+    const user = await UserModel.find({}, [
+      "name",
+      "surname",
+      "username",
+      "influence",
+      "photo",
+    ]);
+
+    const userRanking = user.sort((a, b) => b.influence - a.influence);
+
+    res.status(200).json(userRanking);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(`Error showing ranking users: ${err}`);
+  }
+}
+
 async function getOneUser(req, res) {
   try {
     const user = await UserModel.findById(req.params.userId, [
@@ -152,6 +171,7 @@ async function deleteOneUser(req, res) {
 module.exports = {
   getAllUsers,
   getOneUser,
+  getRankingUsers,
   editOneUser,
   deleteOneUser,
 };
