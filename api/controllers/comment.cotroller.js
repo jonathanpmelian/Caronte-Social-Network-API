@@ -8,7 +8,12 @@ async function createComment(req, res) {
     post.comments.push(req.body);
     await post.save();
 
-    res.status(200).json(post.comments);
+    const newPost = await PostModel.findById(req.params.postId).populate({
+      path: "comments",
+      populate: { path: "user", select: "name surname username photo" },
+    });
+
+    res.status(200).json(newPost.comments[newPost.comments.length - 1]);
   } catch (err) {
     console.error(err);
     res.status(500).send(`Error creating comment: ${err}`);
@@ -19,9 +24,9 @@ async function updateComment(req, res) {
   try {
     const post = await PostModel.findById(req.params.postId);
 
-    if (req.body.likes || req.body.dislike) {
+    if (req.body.likes || req.body.disLikes) {
       const user = await UserModel.findById(
-        req.body.likes || req.body.dislikes
+        req.body.likes || req.body.disLikes
       );
       const key = Object.keys(req.body)[0];
       const indexComment = post.comments.findIndex(
@@ -41,7 +46,7 @@ async function updateComment(req, res) {
             creator.premium = true;
           }
         }
-        if (key === "dislikes") {
+        if (key === "disLikes") {
           creator.influence--;
         }
         await post.save();
@@ -50,7 +55,7 @@ async function updateComment(req, res) {
         if (key === "likes") {
           creator.influence--;
         }
-        if (key === "dislikes") {
+        if (key === "disLikes") {
           creator.influence++;
           if (creator.influence > process.env.premiumLvl) {
             creator.premium = true;

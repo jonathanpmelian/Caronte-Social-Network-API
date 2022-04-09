@@ -78,13 +78,14 @@ async function getAllPost(req, res) {
         "summary",
         "category",
         "premium",
+        "images",
         "publishDate",
         "likes",
         "dislikes",
         "comments",
         "bookedTimes",
       ]
-    );
+    ).populate({ path: "user", select: "name surname username photo" });
 
     const user = await UserModel.findById(res.locals.user.id).populate(
       "subscriptions"
@@ -117,7 +118,12 @@ async function getAllPost(req, res) {
 
 async function getOnePost(req, res) {
   try {
-    const post = await PostModel.findById(req.params.postId, "-summary");
+    const post = await PostModel.findById(req.params.postId, "-summary")
+      .populate({ path: "user", select: "name surname username photo" })
+      .populate({
+        path: "comments",
+        populate: { path: "user", select: "name surname username photo" },
+      });
     const user = await UserModel.findById(res.locals.user.id).populate(
       "subscriptions"
     );
