@@ -12,6 +12,7 @@ async function getChart(req, res) {
       const historicalData = await cryptoAPI.get(
         `/v2/histoday?fsym=${portfolio.coins[i].coin}&tsym=${portfolio.currency}&limit=${range}`
       );
+
       const convertion = historicalData.data.Data.Data.map((elem) => {
         return (elem = {
           coin: portfolio.coins[i].coin,
@@ -39,7 +40,7 @@ async function getChart(req, res) {
       }
       portfolio.holdingConvertion[i].total.toFixed(2);
     }
-    await portfolio.save();
+    await portfolio.updateOne();
 
     res.status(200).json(portfolio.holdingConvertion);
   } catch (err) {

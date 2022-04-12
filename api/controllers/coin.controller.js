@@ -1,15 +1,21 @@
-// const axios = require("axios");
 const PortfolioModel = require("../models/portfolio.model");
+const { cryptoAPI } = require("../utils/index");
 
-async function addCoin(req, res) {
+async function addCoin(req, res, next) {
   try {
     const portfolio = await PortfolioModel.findById(
       req.params.portfolioId
     ).populate("coins");
+    const coinData = await cryptoAPI.get(
+      `/pricemultifull?fsyms=${req.body.coin}&tsyms=${portfolio.currency}`
+    );
+    console.log(coinData.data);
+    const image = coinData.data.RAW[req.body.coin][portfolio.currency].IMAGEURL;
+    req.body.image = `https://www.cryptocompare.com${image}`;
     portfolio.coins.push(req.body);
     await portfolio.save();
 
-    res.status(200).json(portfolio.coins);
+    next();
   } catch (err) {
     console.log(err);
     res.status(500).send(`Error adding coin: ${err}`);

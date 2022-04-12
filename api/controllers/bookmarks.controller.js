@@ -3,9 +3,10 @@ const PostModel = require("../models/post.model");
 
 async function getAllBookmarks(req, res) {
   try {
-    const user = await UserModel.findById(res.locals.user.id).populate(
-      "bookmarks"
-    );
+    const user = await UserModel.findById(res.locals.user.id).populate({
+      path: "bookmarks",
+      populate: "user",
+    });
 
     res.status(200).json(user.bookmarks);
   } catch (err) {

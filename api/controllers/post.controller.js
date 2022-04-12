@@ -5,6 +5,7 @@ async function createPost(req, res) {
   try {
     req.body.user = res.locals.user.id;
     req.body.summary = req.body.content.substring(0, 200) + "...";
+    req.body.publishDate = new Date();
 
     if (req.body.premium === true && !res.locals.user.premium) {
       return res.status(403).send("Only premium users can create premium post");

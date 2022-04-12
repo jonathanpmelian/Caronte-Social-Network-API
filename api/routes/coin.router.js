@@ -8,7 +8,7 @@ const {
   deleteOneCoin,
 } = require("../controllers/coin.controller");
 
-router.post("/", checkAuth, addCoin);
+router.post("/", checkAuth, addCoin, updatePrice);
 router.put("/:coinId", checkAuth, editOneCoin, updatePrice);
 router.delete("/:coinId", checkAuth, deleteOneCoin);
 

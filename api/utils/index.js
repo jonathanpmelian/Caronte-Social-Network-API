@@ -68,6 +68,8 @@ async function updatePrice(req, res) {
         (portfolio.coins[i].pl / portfolio.coins[i].totalInit) *
         100
       ).toFixed(2);
+
+      portfolio.coins[i].actual = actualPrice.data[portfolio.currency];
     }
     portfolio.adquisitionCost = portfolio.coins.reduce(
       (p, c) => p + c.totalInit,
@@ -98,6 +100,7 @@ async function updatePrice(req, res) {
       ].coin
     } ${worstCrypto}%`;
 
+    await portfolio.updateOne();
     await portfolio.save();
 
     res.status(200).json(portfolio);

@@ -4,11 +4,14 @@ const coinSchema = new mongoose.Schema({
   coin: {
     type: String,
     required: true,
-    enum: ["BTC", "ETH"],
+    enum: ["BTC", "ETH", "ADA"],
   },
   amount: {
     type: Number,
     required: true,
+  },
+  image: {
+    type: String,
   },
   price: {
     type: Number,
@@ -28,6 +31,9 @@ const coinSchema = new mongoose.Schema({
     type: Number,
   },
   change: {
+    type: Number,
+  },
+  actual: {
     type: Number,
   },
 });

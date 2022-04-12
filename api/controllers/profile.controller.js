@@ -4,23 +4,28 @@ const UserModel = require("../models/user.model");
 
 async function getMyProfile(req, res) {
   try {
-    const user = await UserModel.findById(res.locals.user.id, [
-      "name",
-      "surname",
-      "username",
-      "email",
-      "country",
-      "description",
-      "photo",
-      "premium",
-      "influence",
-      "posts",
-    ]);
+    const user = await UserModel.findById(res.locals.user.id).populate(
+      "portfolio"
+    );
 
     res.status(200).json(user);
   } catch (err) {
     console.log(err);
     res.status(500).send(`Error getting my profile: ${err}`);
+  }
+}
+
+async function getMyPosts(req, res) {
+  try {
+    const user = await UserModel.findById(res.locals.user.id).populate({
+      path: "posts",
+      populate: "user",
+    });
+
+    res.status(200).json(user.posts);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(`Error getting my posts: ${err}`);
   }
 }
 
@@ -132,6 +137,7 @@ async function deleteMyAccount(req, res) {
 
 module.exports = {
   getMyProfile,
+  getMyPosts,
   editMyProfile,
   deleteMyAccount,
 };
