@@ -3,7 +3,7 @@ const { cryptoAPI } = require("../utils/index");
 async function getTopList(req, res) {
   try {
     const topList = await cryptoAPI.get(`/top/totalvolfull?limit=10&tsym=USD`);
-    console.log(topList);
+
     res.status(200).json(topList.data.Data);
   } catch (err) {
     console.log(err);

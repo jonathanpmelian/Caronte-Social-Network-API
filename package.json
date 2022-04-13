@@ -26,7 +26,8 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.9",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "eslint": "^8.12.0"
