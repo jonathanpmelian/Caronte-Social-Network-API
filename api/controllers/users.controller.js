@@ -46,18 +46,10 @@ async function getRankingUsers(req, res) {
 
 async function getOneUser(req, res) {
   try {
-    const user = await UserModel.findById(req.params.userId, [
-      "name",
-      "surname",
-      "username",
-      "country",
-      "description",
-      "photo",
-      "posts",
-      "following",
-      "followers",
-      "subscribers",
-    ]);
+    const user = await UserModel.findById(req.params.userId).populate({
+      path: "posts",
+      populate: "user",
+    });
 
     res.status(200).json(user);
   } catch (err) {
