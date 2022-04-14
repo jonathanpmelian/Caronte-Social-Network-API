@@ -10,6 +10,9 @@ const messageSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
+  date: {
+    type: Number,
+  },
 });
 
 module.exports = messageSchema;

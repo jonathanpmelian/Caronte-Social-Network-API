@@ -5,7 +5,10 @@ async function getChats(req, res) {
   try {
     const user = await UserModel.findById(res.locals.user.id).populate({
       path: "roomChat",
-      populate: "user1 user2",
+      populate: [
+        { path: "user1 user2" },
+        { path: "messages", populate: "user" },
+      ],
     });
 
     res.status(200).json(user.roomChat);
@@ -22,7 +25,7 @@ async function getOneChat(req, res) {
       .populate("user2")
       .populate({
         path: "messages",
-        populate: { path: "user", select: "name surname" },
+        populate: { path: "user", select: "name surname username" },
       });
 
     res.status(200).json(room);
@@ -56,10 +59,14 @@ async function addRoom(req, res) {
 
 async function addMessage(req, res) {
   try {
+    let calcDate = new Date();
+    calcDate = calcDate.getTime();
+    console.log(calcDate);
     const room = await RoomChatModel.findById(req.params.chatroomId);
     room.messages.push({
       message: req.body.message,
       user: res.locals.user.id,
+      date: calcDate,
     });
     await room.save();
     const newRoom = await RoomChatModel.findById(
