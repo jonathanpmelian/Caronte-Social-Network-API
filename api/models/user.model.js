@@ -102,6 +102,16 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  roomChat: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "roomChat",
+    },
+  ],
+  online: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const UserModel = mongoose.model("user", userSchema);

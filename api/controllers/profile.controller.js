@@ -36,12 +36,13 @@ async function editMyProfile(req, res) {
       {
         photo: req.body.photo,
         description: req.body.description,
+        online: req.body.online,
       },
       {
         new: true,
         runValidators: true,
         select:
-          "name surname username description email country description photo premium influence posts",
+          "name surname username description email country description photo premium influence posts online",
       }
     );
 

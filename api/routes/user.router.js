@@ -44,6 +44,13 @@ const {
   editPrivacy,
 } = require("../controllers/privacy.controller");
 
+const {
+  getChats,
+  getOneChat,
+  addRoom,
+  addMessage,
+} = require("../controllers/message.controller");
+
 const coinRouter = require("./coin.router");
 const chartRouter = require("./chart.router");
 
@@ -80,5 +87,10 @@ router.get("/subscribers", checkAuth, getSubscribers);
 
 router.get("/privacy", checkAuth, getPrivacy);
 router.put("/privacy", checkAuth, editPrivacy);
+
+router.get("/chatroom", checkAuth, getChats);
+router.get("/chatroom/:chatroomId", checkAuth, getOneChat);
+router.post("/chatroom", checkAuth, addRoom);
+router.post("/chatroom/:chatroomId", checkAuth, addMessage);
 
 module.exports = router;
