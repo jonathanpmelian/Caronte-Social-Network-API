@@ -49,6 +49,7 @@ const {
   getOneChat,
   addRoom,
   addMessage,
+  editRoom,
 } = require("../controllers/message.controller");
 
 const coinRouter = require("./coin.router");
@@ -92,5 +93,6 @@ router.get("/chatroom", checkAuth, getChats);
 router.get("/chatroom/:chatroomId", checkAuth, getOneChat);
 router.post("/chatroom", checkAuth, addRoom);
 router.post("/chatroom/:chatroomId", checkAuth, addMessage);
+router.put("/chatroom/:chatroomId", checkAuth, editRoom);
 
 module.exports = router;

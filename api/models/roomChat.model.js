@@ -13,6 +13,14 @@ const roomChatSchema = new mongoose.Schema({
     required: true,
   },
   messages: [messageSchema],
+  newMessages1: {
+    type: Number,
+    default: 0,
+  },
+  newMessages2: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const RoomChatModel = mongoose.model("roomChat", roomChatSchema);
