@@ -1,5 +1,6 @@
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
+const timeSince = require("../utils/timeCalc");
 
 async function createPost(req, res) {
   try {
@@ -70,7 +71,7 @@ async function getAllPost(req, res) {
   try {
     const post = await PostModel.find(
       {
-        category: req.query.category,
+        // category: req.query.category,
         title: { $regex: req.query.input || "", $options: "i" },
       },
       [
@@ -109,6 +110,9 @@ async function getAllPost(req, res) {
         }
       }
     }
+    post.forEach(
+      (elem) => (elem.timeAgo = timeSince(elem.publishDate.getTime()))
+    );
 
     res.status(200).json(post);
   } catch (err) {
@@ -125,6 +129,9 @@ async function getOnePost(req, res) {
         path: "comments",
         populate: { path: "user", select: "name surname username photo" },
       });
+
+    post.timeAgo = timeSince(post.publishDate.getTime());
+
     const user = await UserModel.findById(res.locals.user.id).populate(
       "subscriptions"
     );

@@ -27,10 +27,13 @@ const commentSchema = new mongoose.Schema({
   },
   edited: {
     type: Boolean,
-    default: false
+    default: false,
   },
   lastUpdate: {
     type: Date,
+  },
+  timeAgo: {
+    type: String,
   },
 });
 

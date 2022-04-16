@@ -1,11 +1,15 @@
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
+const timeSince = require("../utils/timeCalc");
 
 async function createComment(req, res) {
   try {
     req.body.user = res.locals.user.id;
     const post = await PostModel.findById(req.params.postId);
-    post.comments.push(req.body);
+    post.comments.unshift(req.body);
+    await post.save();
+
+    post.comments[0].timeAgo = timeSince(post.comments[0].publisDate.getTime());
     await post.save();
 
     const newPost = await PostModel.findById(req.params.postId).populate({
@@ -13,7 +17,7 @@ async function createComment(req, res) {
       populate: { path: "user", select: "name surname username photo" },
     });
 
-    res.status(200).json(newPost.comments[newPost.comments.length - 1]);
+    res.status(200).json(newPost.comments[0]);
   } catch (err) {
     console.error(err);
     res.status(500).send(`Error creating comment: ${err}`);
