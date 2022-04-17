@@ -9,10 +9,11 @@ async function addCoin(req, res, next) {
     const coinData = await cryptoAPI.get(
       `/pricemultifull?fsyms=${req.body.coin}&tsyms=${portfolio.currency}`
     );
-    console.log(coinData.data);
+
     const image = coinData.data.RAW[req.body.coin][portfolio.currency].IMAGEURL;
     req.body.image = `https://www.cryptocompare.com${image}`;
     portfolio.coins.push(req.body);
+    // await portfolio.updateOne();
     await portfolio.save();
 
     next();
@@ -27,6 +28,7 @@ async function editOneCoin(req, res, next) {
     const portfolio = await PortfolioModel.findById(req.params.portfolioId);
     const coin = portfolio.coins.id(req.params.coinId);
     coin.set(req.body);
+    // await portfolio.updateOne();
     await portfolio.save();
 
     next();

@@ -89,9 +89,10 @@ async function getAllPost(req, res) {
       ]
     ).populate({ path: "user", select: "name surname username photo" });
 
-    const user = await UserModel.findById(res.locals.user.id).populate(
-      "subscriptions"
-    );
+    const user = await UserModel.findById(res.locals.user.id).populate({
+      path: "subscriptions",
+      populate: "user",
+    });
 
     for (let i = 0; i < post.length; i++) {
       if (post[i].premium) {
@@ -102,7 +103,8 @@ async function getAllPost(req, res) {
                 user.subscriptions[j].user._id.toString() &&
               user.subscriptions[j].available
             ) {
-              post.splice(i, 1);
+              // console.log("llego");
+              // post.splice(i, 1);
             }
           }
         } else {

@@ -15,7 +15,7 @@ async function getAllUsers(req, res) {
 
     const users = await UserModel.find(
       { name: { $regex: req.query.input || "", $options: "i" } },
-      ["name", "surname", "username", "photo"]
+      ["name", "surname", "username", "photo", "followers"]
     );
 
     res.status(200).json(users);
@@ -33,6 +33,7 @@ async function getRankingUsers(req, res) {
       "username",
       "influence",
       "photo",
+      "premium",
     ]);
 
     const userRanking = user.sort((a, b) => b.influence - a.influence);

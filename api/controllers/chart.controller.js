@@ -18,7 +18,7 @@ async function getChart(req, res) {
           coin: portfolio.coins[i].coin,
           time: elem.time,
           holding:
-            (portfolio.coins[i].date.getTime() / 1000).toFixed() < elem.time
+            portfolio.coins[i].date.toFixed() < elem.time
               ? portfolio.coins[i].amount *
                 ((elem.low + elem.high) / 2).toFixed(2)
               : 0,
@@ -40,7 +40,8 @@ async function getChart(req, res) {
       }
       portfolio.holdingConvertion[i].total.toFixed(2);
     }
-    await portfolio.updateOne();
+    // await portfolio.updateOne();
+    // await portfolio.save();
 
     res.status(200).json(portfolio.holdingConvertion);
   } catch (err) {

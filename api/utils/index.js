@@ -100,7 +100,7 @@ async function updatePrice(req, res) {
       ].coin
     } ${worstCrypto}%`;
 
-    await portfolio.updateOne();
+    // await portfolio.updateOne();
     await portfolio.save();
 
     res.status(200).json(portfolio);
