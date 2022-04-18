@@ -1,5 +1,6 @@
 const UserModel = require("../models/user.model");
-const timeSince = require("../utils/timeCalc");
+// const timeSince = require("../utils/timeCalc");
+const moment = require("moment");
 
 async function getMyFeed(req, res) {
   try {
@@ -15,10 +16,10 @@ async function getMyFeed(req, res) {
       },
     });
     user.feed.forEach(
-      (elem) => (elem.timeAgo = timeSince(elem.publishDate.getTime()))
+      (elem) => (elem.timeAgo = moment(elem.publishDate).fromNow())
     );
     await user.save();
-
+    console.log(user.feed.length);
     res.status(200).json(user.feed);
   } catch (err) {
     console.log(err);

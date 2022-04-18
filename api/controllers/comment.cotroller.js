@@ -1,15 +1,16 @@
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
-const timeSince = require("../utils/timeCalc");
+const moment = require("moment");
 
 async function createComment(req, res) {
   try {
     req.body.user = res.locals.user.id;
+    req.body.publisDate = Date.now();
+    req.body.publisDate = new Date(req.body.publisDate).getTime();
+    req.body.timeAgo = moment(req.body.publisDate).fromNow();
+
     const post = await PostModel.findById(req.params.postId);
     post.comments.unshift(req.body);
-    await post.save();
-
-    post.comments[0].timeAgo = timeSince(post.comments[0].publisDate.getTime());
     await post.save();
 
     const newPost = await PostModel.findById(req.params.postId).populate({

@@ -1,12 +1,14 @@
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
-const timeSince = require("../utils/timeCalc");
+// const timeSince = require("../utils/timeCalc");
+const moment = require("moment");
 
 async function createPost(req, res) {
   try {
     req.body.user = res.locals.user.id;
     req.body.summary = req.body.content.substring(0, 200) + "...";
     req.body.publishDate = new Date();
+    req.body.publishDate = req.body.publishDate.getTime();
 
     if (req.body.premium === true && !res.locals.user.premium) {
       return res.status(403).send("Only premium users can create premium post");
@@ -16,7 +18,7 @@ async function createPost(req, res) {
     await post.save();
 
     const creator = await UserModel.findById(res.locals.user.id);
-    creator.posts.push(post.id);
+    creator.posts.unshift(post.id);
     await creator.save();
 
     for (let i = 0; i < creator.followers.length; i++) {
@@ -24,7 +26,7 @@ async function createPost(req, res) {
         creator.followers[i].toString()
       ).populate("subscriptions");
       if (!post.premium) {
-        user.feed.push(post.id);
+        user.feed.unshift(post.id);
       } else {
         if (user.subscriptions.length > 0) {
           user.subscriptions.forEach((elem) => {
@@ -51,7 +53,7 @@ async function createPost(req, res) {
                 post.user._id.toString() &&
               user.subscriptions[i].available
             ) {
-              user.feed.push(post.id);
+              user.feed.unshift(post.id);
             }
           }
         }
@@ -112,9 +114,8 @@ async function getAllPost(req, res) {
         }
       }
     }
-    post.forEach(
-      (elem) => (elem.timeAgo = timeSince(elem.publishDate.getTime()))
-    );
+    post.forEach((elem) => (elem.timeAgo = moment(elem.publishDate).fromNow()));
+    post.sort((a, b) => b.publishDate - a.publishDate);
 
     res.status(200).json(post);
   } catch (err) {
@@ -132,7 +133,8 @@ async function getOnePost(req, res) {
         populate: { path: "user", select: "name surname username photo" },
       });
 
-    post.timeAgo = timeSince(post.publishDate.getTime());
+    post.timeAgo = moment(post.publishDate).fromNow();
+    post.comments.forEach((elem) => moment(elem.publisDate).fromNow());
 
     const user = await UserModel.findById(res.locals.user.id).populate(
       "subscriptions"

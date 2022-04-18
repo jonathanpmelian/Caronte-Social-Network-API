@@ -22,8 +22,8 @@ const commentSchema = new mongoose.Schema({
     },
   ],
   publisDate: {
-    type: Date,
-    default: Date.now(),
+    type: Number,
+    required: true,
   },
   edited: {
     type: Boolean,
