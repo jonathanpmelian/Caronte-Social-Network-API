@@ -105,7 +105,6 @@ async function getAllPost(req, res) {
                 user.subscriptions[j].user._id.toString() &&
               user.subscriptions[j].available
             ) {
-              // console.log("llego");
               // post.splice(i, 1);
             }
           }
