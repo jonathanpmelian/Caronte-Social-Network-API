@@ -24,7 +24,8 @@ const mongoose = require("mongoose");
       .use(cors())
       .use(morgan("dev"))
       .use(express.json())
-      .use("/api", require("./routes/index"));
+      .use("/api", require("./routes/index"))
+      .use(express.static("assets"));
 
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, (err) => {
@@ -32,7 +33,7 @@ const mongoose = require("mongoose");
         console.log(err);
       }
       console.info(">".repeat(40));
-      console.info("🧑‍🍳  Caronte Server Live");
+      console.info("🪙   Caronte Server Live");
       console.info(`📡  PORT: http://localhost:${PORT}`);
       console.info(">".repeat(40) + "\n");
     });

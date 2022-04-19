@@ -31,6 +31,9 @@ async function login(req, res) {
       const token = jwt.sign({ email: user.email }, process.env.SECRET);
       res.status(200).json({ token });
     });
+
+    user.online = true;
+    await user.save();
   } catch (err) {
     console.error(err);
     res.status(500).send(`Error login user: ${err}`);

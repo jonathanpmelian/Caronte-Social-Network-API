@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const checkAuth = require("../utils/index");
+const { checkAuth } = require("../utils/index");
 
 const { login, signup } = require("../controllers/auth.controller");
 
