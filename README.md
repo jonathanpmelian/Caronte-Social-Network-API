@@ -1,5 +1,27 @@
-# Proyecto-3
+# CARONTE SOCIAL NETWORK API
+## Related Repository
+FRONT: [CaronteFront](https://github.com/jonathanpmelian/Caronte-Social-Network-Front)
+## Description
+Caronte is a crypto social network where investors can share information, stay tune to market updates, create their own portfolio and based on a premium system, subscribe to the content of the most influential users.
 
+## Future updates🌱
+Actually working on:
+- Updating functions to improve performance
+
+## Badges
+![image](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+![image](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![image](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![image](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![image](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
+![image](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![image](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
+![image](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![image](https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
+![image](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
+
+## Data Model
+![carontedatamodel](https://user-images.githubusercontent.com/89730979/166663009-1ba63e92-7390-4501-a9d4-fd2c04f25afc.png)
 ## API Endpoints
 
 All API Request must be prepended with `/api`
@@ -44,10 +66,34 @@ The PORTFOLIO flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /user/portfolio       | SI    | User - Admin   | View his portfolio         |  -                                              | `user portfolio`
-POST   | /user/portfolio       | SI    | User - Admin   | Create his portfolio       |  `coin` `amount` `price` `date`                 | `new user portfolio`
-PUT    | /user/portfolio       | SI    | User - Admin   | Edit his portfolio         |  `coin` `amount` `price` `dat                   | `updated user portfolio` 
-DELETE | /user/portfolio       | SI    | User - Admin   | Delete his portfolio       |  -                                              | `empty object`
+GET    | /user/portfolio       | SI    | User - Admin   | View all his portfolio     |  -                                              | `all user portfolio`
+GET    | /user/portfolio/:portfolioId | SI    | User - Admin   | View his portfolio  |  -                                              | `user portfolio`
+POST   | /user/portfolio       | SI    | User - Admin   | Create his portfolio       |  `title` `description`                          | `new user portfolio`
+PUT    | /user/portfolio/:portfolioId | SI    | User - Admin   | Edit his portfolio  |  `title` `description`                          | `updated user portfolio` 
+DELETE | /user/portfolio/:portfolioId | SI    | User - Admin   | Delete his portfolio       |  -                                       | `empty object`
+
+The CHART flow for the application is:
+ 
+METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
+-------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
+GET    | /user/portfolio/:portfolioId/chart | SI    | User - Admin   | View portfolio chart |  -                                  | `user portfolio chart`
+GET    | /user/portfolio/:portfolioId/chart/piechart | SI    | User - Admin   | View portfolio chart |  -                               | `user portfolio chart`
+PUT    | /user/portfolio/:portfolioId/chart | SI    | User - Admin   | Edit portfolio chart |  `title` `description`              | `updated user portfolio chart` 
+
+The DATA flow for the application is:
+ 
+METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
+-------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
+GET    | /data/topList    | SI    | User - Admin   | View toplist               |  -                                              | `toplist 24h`
+GET    | /data/news       | SI    | User - Admin   | View news                  |  -                                              | `news` 
+
+The COIN flow for the application is:
+ 
+METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
+-------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
+POST   | /user/portfolio/coin | SI    | User - Admin   | Create a coin       |  `coin` `amount` `price` `date`                 | `new user portfolio coin`
+PUT    | /user/portfolio/:portfolioId/coin/:coinId | SI    | User - Admin   | Edit coin |  `coin` `amount` `price` `dat        | `updated user portfolio coin` 
+DELETE | /user/portfolio/:portfolioId/coin/:coinId | SI    | User - Admin   | Delete coin |  -                                 | `portfolio`
 
 The CHAT flow for the application is:
  
@@ -69,8 +115,7 @@ The BOOKMARKS flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /user/bookmarks       | SI    | User - Admin   | View all his bookmarks     | -                                               | `user bookmarks`
-POST   | /user/bookmarks       | SI    | User - Admin   | Add one bookmark           | `user bookmarks`                                | `user updated bookmarks`
-DELETE | /user/bookmarks       | SI    | User - Admin   | Delete one bookmark        | `user bookmarks`                                | `user updated bookmarks`
+DELETE | /user/bookmarks/:postId | SI    | User - Admin   | Delete one bookmark        | `user bookmarks`                                | `user updated bookmarks`
 
 The FEED flow for the application is:
  
@@ -90,15 +135,15 @@ The FOLLOWING flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /user/following       | SI    | User - Admin   | View all his follows       | -                                               | `user followings`
-POST   | /user/following       | SI    | User - Admin   | Add one follow             | `user following`                                | `user updated following`
-DELETE | /user/following       | SI    | User - Admin   | Delete one follow          | `user following`                                | `user updated following` 
+POST   | /user/following/:userId | SI    | User - Admin   | Add one follow             | `user following`                                | `user updated following`
+DELETE | /user/following/:userId | SI    | User - Admin   | Delete one follow          | `user following`                                | `user updated following` 
 
 The SUBSCRIPTION flow for the application is:
  
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
-GET    | /user/subscriptions   | SI    | User - Admin   | View all his subscriptions | -                                               | `user subscriptions`
-POST   | /user/subscriptions   | SI    | User - Admin   | Create one subscription    | `user` `type`                                   | `user new subscription`
+GET    | /user/subscriptions | SI    | User - Admin   | View all his subscriptions | -                                            | `user subscriptions`
+POST   | /user/subscriptions/:userId | SI    | User - Admin   | Create one subscription | `user` `type`                           | `user new subscription`
 
 The SUBSCRIBERS flow for the application is:
  
@@ -126,5 +171,18 @@ The USERS flow for the application is:
 METHOD | ENDPOINT         | TOKEN |     ROL        |  DESCRIPTION               | POST PARAMS                                     | RETURNS
 -------|------------------|-------|----------------|----------------------------|-------------------------------------------------|--------------------
 GET    | /users           | SI    |  User - Admin  | View all users             | -                                               | `all users`
-PUT    | /users           | SI    |     Admin      | Edit one user              |  `role` `premium`                               | `updated user`
-DELETE | /users           | SI    |     Admin      | Delete one user            | -                                               | `empty object`
+GET    | /users/:userId   | SI    |  User - Admin  | View one user              | -                                               | `user`
+PUT    | /users/:userId   | SI    |     Admin      | Edit one user              |  `role` `premium`                               | `updated user`
+DELETE | /users/:userId   | SI    |     Admin      | Delete one user            | -                                               | `empty object`
+
+## Authors
+#### Jonathan Pulido
+jonathanpmelian@gmail.com
+#### Alexis Rodriguez
+k4nijo@gmail.com
+## Contribution
+Contributions, issues, and feature requests are welcome!
+## License
+[MIT](https://github.com/jonathanpmelian/Caronte-Social-Network-API/blob/main/LICENSE)
+## Support
+Give a ⭐️ if you like this project!
