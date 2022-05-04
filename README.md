@@ -1,6 +1,6 @@
 # CARONTE SOCIAL NETWORK API
 ## Related Repository
-
+FRONT: [CaronteFront](https://github.com/jonathanpmelian/Caronte-Social-Network-Front)
 ## Description
 Caronte is a crypto social network where investors can share information, stay tune to market updates, create their own portfolio and based on a premium system, subscribe to the content of the most influential users.
 
@@ -20,6 +20,8 @@ Actually working on:
 ![image](https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
 ![image](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
 
+## Data Model
+![image]()
 ## API Endpoints
 
 All API Request must be prepended with `/api`
