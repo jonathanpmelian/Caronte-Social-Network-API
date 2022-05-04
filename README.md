@@ -1,4 +1,24 @@
-# Proyecto-3
+# CARONTE SOCIAL NETWORK API
+## Related Repository
+
+## Description
+Caronte is a crypto social network where investors can share information, stay tune to market updates, create their own portfolio and based on a premium system, subscribe to the content of the most influential users.
+
+## Future updates🌱
+Actually working on:
+- Updating functions to improve performance
+
+## Badges
+![image](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+![image](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![image](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![image](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![image](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
+![image](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![image](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
+![image](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![image](https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
+![image](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
 
 ## API Endpoints
 
@@ -152,3 +172,15 @@ GET    | /users           | SI    |  User - Admin  | View all users             
 GET    | /users/:userId   | SI    |  User - Admin  | View one user              | -                                               | `user`
 PUT    | /users/:userId   | SI    |     Admin      | Edit one user              |  `role` `premium`                               | `updated user`
 DELETE | /users/:userId   | SI    |     Admin      | Delete one user            | -                                               | `empty object`
+
+## Authors
+#### Jonathan Pulido
+jonathanpmelian@gmail.com
+#### Alexis Rodriguez
+k4nijo@gmail.com
+## Contribution
+Contributions, issues, and feature requests are welcome!
+## License
+[MIT](https://github.com/jonathanpmelian/Caronte-Social-Network-API/blob/main/LICENSE)
+## Support
+Give a ⭐️ if you like this project!
