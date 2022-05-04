@@ -21,7 +21,7 @@ Actually working on:
 ![image](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
 
 ## Data Model
-![image]()
+![carontedatamodel](https://user-images.githubusercontent.com/89730979/166663009-1ba63e92-7390-4501-a9d4-fd2c04f25afc.png)
 ## API Endpoints
 
 All API Request must be prepended with `/api`
